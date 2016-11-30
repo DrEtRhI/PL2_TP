@@ -43,7 +43,7 @@ public class Dessin extends JPanel {
     
     /**
      * ajoute un VisageRond à la zone de dessin.
-     * @param c la VisageRond à ajouter au Dessin
+     * @param v le VisageRond à ajouter au Dessin
      * @see VisageRond
      */
     public void ajouterObjet(VisageRond v) {

@@ -61,12 +61,12 @@ public class VisageRond {
 	/**
 	 * largeur du visage. Par défaut 50 pixels.
 	 */
-	private int largeur = 50;
+	private int largeur = 100;
 
 	/**
 	 * hauteur du visage. Par défaut 50 pixels.
 	 */
-	private int hauteur = 50;
+	private int hauteur = 100;
 
 	/**
 	 * déplacement élémentaire horizontal du visage. Par défaut 5 pixels.
@@ -154,11 +154,22 @@ public class VisageRond {
 	public void setDx(int v) {
 		this.dx = v;
 	}
-
+	
+	/**
+	 * Donne la valeur du déplacement élémentaire vertical.
+	 *
+	 *@return valeur de dy, déplacement élémentaire vertical.
+	 */
 	public int getDy() {
 		return dy;
 	}
 
+	/**
+	 * Fixe déplacement élémentaire vertical.
+	 * 
+	 * @param v
+	 *            Valeur à affecter à dy, déplacement élémentaire vertical.
+	 */
 	public void setDy(int v) {
 		this.dy = v;
 	}

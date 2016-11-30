@@ -1,0 +1,180 @@
+COMPILATION
+
+1. Compilation de l'application HelloWorldApp.java.
+
+    Quelle commande avez-vous utilisée ?
+    javac HelloWorlApp.java.............
+
+    Quel est le nom du fichier créé par cette commande de compilation ?
+    HelloWorldApp.class................................................
+
+    Que contient-il ? (Affichez son contenu sur la console, commande 
+    type sous Windows, more ou less sous Unix)
+    Il contient du code binaire.....................................
+
+    Invoquez la commande javap -c HelloWorldApp. Quel est l'effet de celle-ci ?
+    Cette commande permet de voir le langage d'assemblage......................
+
+
+2. Quelle commande utilisez-vous pour executer l'application HelloWorldApp sur la machine où vous l'avez compilée ?
+	 java HelloWorldApp..............................................................................................
+
+3. Sans la recompiler exécutez l'application HelloWorldApp depuis une autre machine (par exemple si vous avez compilé sous Windows, ouvrez une
+	 fenêtre terminal sur l'une des machines unix).
+
+    si les versions de java sont compatibles sur les deux machines, l'application doit pouvoir être exécutée sans être recompilée
+
+    si ce n'est pas le cas, recompilez l'application java sur cette seconde machine et essayez de l'exécuter sur les deux machines.
+
+    Dans quelles conditions un programme java compilé sur une machine A peut-il être exécuté sans recompilation sur une machine B ?
+
+    Si la machine B possède la meme version de java que la machine A, ou si la version sur la machine B est 
+    ultérieur à celle de la machine A alors la machine B pourra exécuter le code sans problème.............
+    Le seul cas posant problème sera si la version java sur la machine B est antérieure à la version sur la 
+    machine A..............................................................................................
+    
+    Quelle option du compilateur java permet de voir le détail des méthodes dépréciées ?
+		L'option -Xlint permet de d'identifier quelles sont les méthodes dépréciées............................ 
+    On peut voir par quelles méthodes ont été remplacées celles dépréciées sur la page de l'API Java SE....
+    
+    
+
+    Quel est le rôle de l'option -d utilisée dans la commande javac ?
+    L'option -d spécifie où seront placés les fichiers .class générés.
+
+    Quel aurait été l'effet de la commande javac AppliVisage1.java ?
+    Sans l'utilisation de l'option -d les .class sont générés dans le dossier
+    ou se situe le .java.....................................................
+
+    Quels ont été les fichiers créés par la commande de compilation de la classe AppliVisage1 ?
+    AppliVisage1.class, Dessin.class et VisageRond.class. Toutes les classes appelées par la classe 
+    contenant la classe main sont automatiquement compilées en .class..............................
+
+    Qu'en déduisez-vous ?
+    La commande javac permet de générer tous les fichiers .classs permettant l'exécution de la classe
+    principale contenant la classe main..............................................................
+
+    
+    
+DOCUMENTATION DES OUTILS JDK
+
+	 	URL de la documentation JDK ?
+	 	http://docs.oracle.com/javase/8/docs/technotes/tools/index.html
+	 	
+	 	Parcourez cette documentation pour voir les outils de base du JDK. Pour chacun des outils suivants indiquez son rôle :
+
+				javac : Commande pour compiler des programmes en JAVA.....................
+				java : Commande pour lancer un exécutable JAVA............................
+				appletviewer : Commande pour lancer et debugger un applet sans navigateur.
+				javadoc : Générateur de documentation API.................................
+				javap : Desassembleur de fichier .class...................................
+				jdb : Debugger java.......................................................
+				
+
+		Que signifie l'acronyme jar et qu'est-ce qu'un fichier .jar ?
+		Java Archive file. Permet d'agréger plusieurs fichiers en un seul. Les fichiers d'un projet java
+		peuvent etre regroupés dans .jar facilitant le téléchargement et permet de réduire la taille du projet.
+
+		Que signifie l'option -showversion de l'interpréteur java ? Quelle est la différence avec l'option -version ?
+		L'option -showversion permet d'afficher la version java utilisée avant le lancement du programme java.......
+		L'option -version permet d'afficher la version java de la machine sans exécuter le programme java...........
+
+
+DOCUMENTATION DE L'API DE JAVA SE
+
+		Que signifie le terme API ?
+		Application Programming Interface.......
+		
+		Page présentant l'API Java ?
+		http://docs.oracle.com/javase/8/docs/api/index.html.......
+		
+		
+
+		Retrouvez la documentation de la classe Math de l'API java, classe définie dans le package java.lang.
+
+				Quel est le rôle de cette classe ?
+				Elle contient les méthodes de base pour réaliser des opérations numériques élémentaire :
+				exponential, logarithm, square root, and trigonometric functions..............................................
+
+				Quel est le nom et la signature de la méthode qui permet de transformer une valeur exprimée en radians en une 
+				valeur exprimée en degrés ?
+				toRadians(double angdeg)......................................................................................
+				Convertit un angle mesuré en degrés en un angle approximatif en radian........................................
+
+				Retrouvez la documentation du package java.net. Que propose ce package ?
+				Ce package propose toutes les classes utiles pour le travail sur un réseau....................................
+				..............................................................................................................
+
+				Quelle est le nom de la classe de ce package qui permet de représenter sous forme d'un objet java une adresse 
+				IP v6 ?
+				Inet6Address..................................................................................................
+				..............................................................................................................
+
+		Retrouvez la documentation de la classe String.
+
+				A quel package appartient cette classe ?
+				Elle appartien au package java.lang..................................................................
+
+				A quoi sert cette classe ?
+				Elle contient toutes les méthodes pour travailler sur des chaines de caractères......................
+
+				Que fait la méthode toUpperCase de cette classe ?
+				Elle permet de transformer une chaine de caractère en majuscules.....................................
+				
+				
+EXECUTION DE L'APPLICATION
+	
+		Pour lancer une application Java on utilise la commande java : 
+		Cette commande doit etre exécutée dans le dossier contenant les fichiers .class de l'application.........
+		
+		Si la commande java est réalisée dans un dossier ne contenant pas de fichiers .class :
+		Un message d'erreur indique que la classe main n'a pas pu etre chargée ou trouvée........................
+		
+		Utilisation de l'option -cp (-classpath) de la commande java:
+		Cette option permet de spécifier ou se trouve les classes à charger. Ainsi on peut lancer une application
+		depuis un emplacement ne contenant pas de fichier .class en lui spécifiant ou les trouver................
+		
+		Si le fichier .class contenant la classe main n'est pas au meme endroit que les autres .class : 
+		L'utilisation de la commande java donnera une erreur indiquant les classes et méthodes manquantes pour 
+		l'exécution de l'application..........................................................................
+		
+		Avec le cas précédent, si on utilise l'option -cp pour indiquer où se trouve les .class, on a toujours un
+		message qui s'affiche car il ne "voit" plus à ce moment le fichier .class du répertoire courant ayant la 
+		class main.
+		
+		Pour palier ce problème il faut utiliser la commande :
+		java -cp .:classes AppliVisage1
+		L'utilisation de "-cp .:classes" permet d'indiquer que les fichiers .class se trouves dans le répertoire 
+		courant "." et dans le dossiers "classes". Les ":" sert de séparateur pour linux sur windows c'est ";" 
+
+CREATION D'UN FICHIER .JAR
+
+		Quelle commande faut-il utiliser pour créer un .jar ?
+		jar cvf nomArchive.jar Nom1.class Nom2.class
+		Roles des options cvf, c : permet de créer une nouvelle archive, f : spécifie le nom de l'archive, 
+		v (verbose): décrit ce qu'il se passe lors de la création du .jar et notamment la compréssion des fichiers.
+		
+		Que fait la commande jar tvf sur le .jar nouvellement créé ?
+		Cette commande permet de décrire ce que contient l'archive .jar 
+		
+		Comment exécuter une application avec un fichier .jar ?
+		Il faut utiliser la commande suivante : java .:./fichier.jar fichierAvecClassMain
+		
+		Quel est l'intéret des fichiers .jar ?
+		Cela permet de regrouper les fichiers nécessaire à l'application java sous un seul et meme fichier. Cela
+		s'implifie grandement les échanges et téléchargements. De plus cela permet de compresser les différents
+		fichiers composant l'application.
+		
+GENERATION DE LA DOCUMENTATION AUTOMATIQUE
+
+		Depuis le dossier "src" lancez la commande javadoc -d ../docs *.java, quels fichiers sont créés ?
+		Les fichiers créés se trouvent dans le dossier docs/, un grand nombre de page html ont été crées.
+		Toutes ces pages permettent de décrire les classes et méthode de l'application. Il y a aussi des 
+		information sur les methodes dépréciées et les packages.
+		
+		La documentation est automatiquement générée grace au commentaire /** précisant les paramètres et
+		le role de la méthode.
+		
+
+
+		
