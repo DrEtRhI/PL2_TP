@@ -26,7 +26,7 @@ public class MoyenneOlympique {
 			if (max < val){
 				max = val;
 			}
-			if (min > val){
+			if (min > val && val != -1){
 				min = val;
 			}
 			System.out.println("tq val min = " +min);
