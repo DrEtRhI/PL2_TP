@@ -11,7 +11,7 @@ package testensembledelettres;
  */
 public class EnsembleDeLettres {
     
-    private char[] ensemble;
+    private boolean ensemble[];
     
     
     /**
