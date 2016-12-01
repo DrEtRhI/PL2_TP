@@ -110,7 +110,7 @@ public class VisageRond {
 
 	/**
 	 * Constructeur avec positionnement du visage et définition de sa taille.
-	 * Crée un visage dont les diemensions et la position du coin supérieur
+	 * Crée un visage dont les dimensions et la position du coin supérieur
 	 * gauche du rectangle englobant sont fixées à la création. Ce visage est
 	 * doté d'un déplacement élémentaire horizontal et vertical de +5 pixels.
 	 * 
