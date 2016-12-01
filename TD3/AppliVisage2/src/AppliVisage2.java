@@ -43,11 +43,11 @@ public class AppliVisage2  {
         while (true) {
             // le visage 1 a atteint un des bords, il change de direction
             if (v1.bordAtteint()){
-                v1.inverserDxEtDy();
+                v1.deplacerAvecRebond();
             }
             // le visage 2 a atteint un des bords, il change de dirextion
             if (v2.bordAtteint()) {
-                v2.inverserDxEtDy();
+                v2.deplacerAvecRebond();
             }
             // les visages effectuent un déplacement élémentaire
             v1.deplacer();
