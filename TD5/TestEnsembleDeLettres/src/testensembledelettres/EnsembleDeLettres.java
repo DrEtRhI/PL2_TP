@@ -20,11 +20,11 @@ public class EnsembleDeLettres {
      */
     public EnsembleDeLettres(boolean vide) {
         if (vide == true) {
-            present = new boolean[26];
+            present = new boolean[26]; //le tableau de booléens est initialisé à faux pour toutes les lettres
         } else {
             present = new boolean[26];
             for (int i = 0; i < present.length; i++) {
-                present[i] = Math.random() < 0.5;
+                present[i] = Math.random() < 0.5; //pour chaque lettre du tableau de booléen, la valeur true ou false est déterminée aléatoirement
             }
         }
     }
@@ -36,9 +36,9 @@ public class EnsembleDeLettres {
      */
     public EnsembleDeLettres(String s) {
         present = new boolean[26];
-        s = s.toLowerCase().trim();
+        s = s.toLowerCase().trim();//convertit s en lowercase et supprime les espace grâce à trim
         for (int i = 0; i < s.length(); i++) {
-            if (charToIndice(s.charAt(i)) >= 0 && charToIndice(s.charAt(i)) < 26) {
+            if (charToIndice(s.charAt(i)) >= 0 && charToIndice(s.charAt(i)) < 26) {//insère dans la valeur true dans le tableau de booléen si la lettre de s à l'indice i fait partie de [a...z] 
                 present[charToIndice(s.charAt(i))] = true;
             }
         }
@@ -95,6 +95,25 @@ public class EnsembleDeLettres {
     }
 
     /**
+     * Permet de tester si l'ensemble e est inclus dans l'ensemble écoutant
+     *
+     * @param e ensemble dont l'inclusion est testée
+     * @return vrai si l'ensemble e est inclus dans l'ensemble écoutant, faux
+     * s'il n'est pas inclus
+     */
+    public boolean inclus(EnsembleDeLettres e) {
+        int i = 0;
+        boolean ok = true;
+        while (i < present.length && ok) {
+            if (e.present[i]) {
+                ok &= this.present[i];
+            }
+            i++;
+        }
+        return ok;
+    }
+
+    /**
      * Test si le caractère donné en paramètre est présent dans l'ensemble
      *
      * @param a caractère à chercher dans l'ensemble
@@ -117,6 +136,7 @@ public class EnsembleDeLettres {
 
     /**
      * Créé un nouvelle ensemble formé de l'intersection de deux ensembles
+     * l'algorithme se base sur le tableau de booléens.
      *
      * @param e ensemble utilisé pour créer l'intersetion avec l'ensemble
      * écoutant
@@ -125,32 +145,65 @@ public class EnsembleDeLettres {
     public EnsembleDeLettres intersection(EnsembleDeLettres e) {
         EnsembleDeLettres e1 = new EnsembleDeLettres(true);
         for (int i = 0; i < present.length; i++) {
-            if (((this.estPresent(indiceToChar(i))) == true) && ((e.estPresent(indiceToChar(i))) == true)) {
-                    e1.present[i] = true;
-            }else{
-                    e1.present[i] = false;
-            }
+            e1.present[i] = (this.estPresent(indiceToChar(i)) && e.estPresent(indiceToChar(i)));
         }
-
         return e1;
     }
 
     /**
-     * Créé un nouvelle ensemble formé de l'union de deux ensembles
+     * Créé un nouvelle ensemble formé de l'intersection de deux ensembles
+     * l'algorithme se base sur la création de la chaine de caractère de l'intersection et
+     * utilise cette dernière pour créer le nouvel ensemble. (objet de type String)
      *
-     * @param e ensemble utilisé pour créer l'union avec l'ensemble écoutant
+     * @param e ensemble utilisé pour créer l'intersetion avec l'ensemble
+     * écoutant
      * @return le nouvelle ensemble créé
      */
+    public EnsembleDeLettres intersection1(EnsembleDeLettres e) {
+        String chaineIntersection = "";
+        for (int i = 0; i < present.length; i++) {
+            if (this.present[i]) {
+                if (e.present[i]) {
+                    chaineIntersection += indiceToChar(i);
+                } 
+            }
+        }
+        EnsembleDeLettres e1 = new EnsembleDeLettres(chaineIntersection);
+        return e1;
+    }
+    
+    /**
+     * Créé un nouvelle ensemble formé de l'intersection de deux ensembles
+     * l'algorithme se base sur la création de la chaine de caractère de l'intersection et
+     * utilise cette dernière pour créer le nouvel ensemble. (objet de type StringBuilder)
+     * @param e ensemble utilisé pour créer l'intersetion avec l'ensemble
+     * écoutant
+     * @return le nouvelle ensemble créé
+     */
+    public EnsembleDeLettres intersection2(EnsembleDeLettres e) {
+        StringBuilder chaineIntersection = new StringBuilder(100);
+        for (int i = 0; i < present.length; i++) {
+            if (this.present[i]) {
+                if (e.present[i]) {
+                    chaineIntersection.append(indiceToChar(i));
+                } 
+            }
+        }
+        EnsembleDeLettres e1 = new EnsembleDeLettres(chaineIntersection.toString());
+        return e1;
+    }
+    
+        /**
+         * Créé un nouvelle ensemble formé de l'union de deux ensembles
+         *
+         * @param e ensemble utilisé pour créer l'union avec l'ensemble écoutant
+         * @return le nouvelle ensemble créé
+         */
     public EnsembleDeLettres union(EnsembleDeLettres e) {
         EnsembleDeLettres e1 = new EnsembleDeLettres(true);
         for (int i = 0; i < present.length; i++) {
-            if (((this.estPresent(indiceToChar(i))) == true) || ((e.estPresent(indiceToChar(i))) == true)) {
-                    e1.present[i] = true;
-            }else{
-                    e1.present[i] = false;
-            }
+            e1.present[i] = (this.present[i] || e.present[i]);
         }
-
         return e1;
     }
 
@@ -162,18 +215,57 @@ public class EnsembleDeLettres {
      * @return le nouvelle ensemble créé
      */
     public EnsembleDeLettres difference(EnsembleDeLettres e) {
-        return null;
+        EnsembleDeLettres e1 = new EnsembleDeLettres(true);
+        for (int i = 0; i < present.length; i++) {
+            if (this.present[i]) {
+                if (e.present[i]) {
+                    e1.present[i] = !(e.present[i]);
+                } else {
+                    e1.present[i] = !(e.present[i]);
+                }
+            }
+        }
+        return e1;
     }
 
     /**
      * Créé un nouvelle ensemble formé de l'union disjointe de deux ensembles
+     * (sans les éléments présent dans les deux ensembles)
      *
      * @param e ensemble utilisé pour créer l'union disjointe avec l'ensemble
      * écoutant
      * @return le nouvelle ensemble créé
      */
     public EnsembleDeLettres unionDisjointe(EnsembleDeLettres e) {
-        return null;
+        EnsembleDeLettres e1 = new EnsembleDeLettres(true);
+        for (int i = 0; i < present.length; i++) {
+            if (this.present[i]) {
+                if (e.present[i]) {
+                    e1.present[i] = !(this.present[i] || e.present[i]);
+                } else {
+                    e1.present[i] = (this.present[i] || e.present[i]);
+                }
+            } else {
+                e1.present[i] = (this.present[i] || e.present[i]);
+            }
+        }
+        return e1;
+    }
+
+    /**
+     * Evalue si deux ensembles sont égaux, c'est à dire possède les mêmes
+     * caractères
+     *
+     * @param e l'ensemble comparé à l'ensemble écoutant
+     * @return true si l'ensemble e et l'ensemble écoutant sont égaux, false
+     * sinon.
+     */
+    public boolean equal(EnsembleDeLettres e) {
+        boolean ok = true;
+        for (int i = 0; i < present.length; i++) {
+            ok &= (this.present[i] == e.present[i]);
+        }
+        return ok;
     }
 
     private static int charToIndice(char lettre) {

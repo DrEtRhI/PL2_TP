@@ -41,8 +41,8 @@ public class TestEnsembleDeLettres {
         
         EnsembleDeLettres e4 = new EnsembleDeLettres(true);
         EnsembleDeLettres e5 = new EnsembleDeLettres(false);
-        EnsembleDeLettres e6 = new EnsembleDeLettres("abcd");
-        EnsembleDeLettres e7 = new EnsembleDeLettres("cdef");
+        EnsembleDeLettres e6 = new EnsembleDeLettres("abcdy");
+        EnsembleDeLettres e7 = new EnsembleDeLettres("cdxyz");
         
         
         e4.afficher();
@@ -54,8 +54,20 @@ public class TestEnsembleDeLettres {
         e7.afficher();
         System.out.println("l'intersection");
         e6.intersection(e7).afficher();
+        System.out.println("l'intersection1");
+        e6.intersection1(e7).afficher();
+        System.out.println("l'intersection2");
+        e6.intersection2(e7).afficher();
         System.out.println("l'union");
         e6.union(e7).afficher();
+        System.out.println("la différence");
+        e6.difference(e7).afficher();
+        System.out.println("inclusion");
+        System.out.println(e6.inclus(e7));
+        System.out.println("l'union disjointe");
+        e6.unionDisjointe(e7).afficher();
+        System.out.println("égalité");
+        System.out.println(e6.equal(e7));
         
         
     }
