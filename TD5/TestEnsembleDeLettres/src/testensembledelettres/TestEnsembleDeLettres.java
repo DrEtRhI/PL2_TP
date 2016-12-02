@@ -26,7 +26,37 @@ public class TestEnsembleDeLettres {
         System.out.println(e1.intersection1(e3).toString());
         System.out.println(e1.union(e2).union(e3).toString());
         
-       
+        char a = 'a';
+        char z = 'z';
+        
+        int iA = (int)a;
+        int iZ = (int)z;
+        
+        System.out.println("char a = " + a + ", iA = " + iA);
+        System.out.println("char a = " + z + ", iA = " + iZ);
+        
+        int indice = (int)Math.round((Math.random() * 25));
+        System.out.println(indice);
+        
+        
+        EnsembleDeLettres e4 = new EnsembleDeLettres(true);
+        EnsembleDeLettres e5 = new EnsembleDeLettres(false);
+        EnsembleDeLettres e6 = new EnsembleDeLettres("abcd");
+        EnsembleDeLettres e7 = new EnsembleDeLettres("cdef");
+        
+        
+        e4.afficher();
+        System.out.println(e4.cardinal());
+        e5.afficher();
+        System.out.println(e5.cardinal());
+        e6.afficher();
+        System.out.println(e6.cardinal());
+        e7.afficher();
+        System.out.println("l'intersection");
+        e6.intersection(e7).afficher();
+        System.out.println("l'union");
+        e6.union(e7).afficher();
+        
         
     }
     
