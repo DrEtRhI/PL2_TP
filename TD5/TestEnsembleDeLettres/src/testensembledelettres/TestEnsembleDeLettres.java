@@ -68,6 +68,10 @@ public class TestEnsembleDeLettres {
         e6.unionDisjointe(e7).afficher();
         System.out.println("égalité");
         System.out.println(e6.equal(e7));
+        System.out.println("e7 avant ajout");
+        e7.afficher();
+        System.out.println("ajout de 't' à e7");
+        e7.ajouterCaractere('t').afficher();
         
         
     }

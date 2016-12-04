@@ -93,7 +93,19 @@ public class EnsembleDeLettres {
         }
         return som;
     }
-
+    
+    /**
+     * Permet d'ajouter un indice à l'ensemble écoutant
+     * @param a caractère à ajouter à l'ensemble 
+     * @return l'ensemble écoutant
+     */
+    public EnsembleDeLettres ajouterCaractere(char a){
+        if (!(this.present[charToIndice(a)])){
+            this.present[charToIndice(a)] = true;
+        }
+        return this;
+    }
+    
     /**
      * Permet de tester si l'ensemble e est inclus dans l'ensemble écoutant
      *
