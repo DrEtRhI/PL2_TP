@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>EnsembleDeLettres.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;TestEnsembleDeLettres&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">testensembledelettres</a> &gt; <span class="el_source">EnsembleDeLettres.java</span></div><h1>EnsembleDeLettres.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package testensembledelettres;
+
+/**
+ *
+ * @author thierrye
+ */
+public class EnsembleDeLettres {
+
+    private boolean present[];
+
+    /**
+     * Créer un nouvel ensemble vide ou rempli aléatoirement
+     *
+     * @param vide true un ensemble vide, false un ensemble aléatoire
+     */
+<span class="fc" id="L21">    public EnsembleDeLettres(boolean vide) {</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        if (vide == true) {</span>
+<span class="fc" id="L23">            present = new boolean[26]; //le tableau de booléens est initialisé à faux pour toutes les lettres</span>
+        } else {
+<span class="nc" id="L25">            present = new boolean[26];</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">            for (int i = 0; i &lt; present.length; i++) {</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">                present[i] = Math.random() &lt; 0.5; //pour chaque lettre du tableau de booléen, la valeur true ou false est déterminée aléatoirement</span>
+            }
+        }
+<span class="fc" id="L30">    }</span>
+
+    /**
+     * Créé un ensemble à partir d'une chaine de caractère
+     *
+     * @param s chaine de caractère pour initialiser l'ensemble
+     */
+<span class="fc" id="L37">    public EnsembleDeLettres(String s) {</span>
+<span class="fc" id="L38">        present = new boolean[26];</span>
+<span class="fc" id="L39">        s = s.toLowerCase().trim();//convertit s en lowercase et supprime les espace grâce à trim</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        for (int i = 0; i &lt; s.length(); i++) {</span>
+<span class="pc bpc" id="L41" title="2 of 4 branches missed.">            if (charToIndice(s.charAt(i)) &gt;= 0 &amp;&amp; charToIndice(s.charAt(i)) &lt; 26) {//insère dans la valeur true dans le tableau de booléen si la lettre de s à l'indice i fait partie de [a...z] </span>
+<span class="fc" id="L42">                present[charToIndice(s.charAt(i))] = true;</span>
+            }
+        }
+<span class="fc" id="L45">    }</span>
+
+    /**
+     * Affiche l'ensemble entre accolade et les éléments séparés par des espaces
+     * @return retourne la chaine de caractère représentant le tableau
+     */
+    public String afficher() {
+        String e;
+<span class="fc" id="L53">        int j = present.length - 1;</span>
+<span class="pc bpc" id="L54" title="1 of 4 branches missed.">        while (j &gt; 0 &amp;&amp; present[j] != true) {</span>
+<span class="fc" id="L55">            j--;</span>
+        }
+<span class="fc" id="L57">        int max = j;</span>
+<span class="fc" id="L58">        e =&quot;{&quot;;</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">            if (present[i] == true) {</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">                if (i != max) {</span>
+<span class="fc" id="L62">                    e += indiceToChar(i) + &quot;,&quot;;</span>
+                } else {
+<span class="fc" id="L64">                    e += &quot;&quot; + indiceToChar(i);</span>
+                }
+            }
+        }
+<span class="fc" id="L68">        e += &quot;}&quot;;</span>
+<span class="fc" id="L69">        return e;</span>
+    }
+
+    /**
+     * Test si l'ensemble est vide
+     *
+     * @return true si l'ensemble est vide false sinon
+     */
+    public boolean estVide() {
+<span class="fc" id="L78">        int i = 0;</span>
+<span class="pc bpc" id="L79" title="1 of 4 branches missed.">        while (i &lt; present.length &amp;&amp; present[i] != true) {</span>
+<span class="fc" id="L80">            i++;</span>
+        }
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        return !(i &lt; present.length);</span>
+    }
+
+    /**
+     * Renvoie le nombre d'éléments présents dans l'ensemble
+     *
+     * @return le nombre d'éléments de l'ensemble;
+     */
+    public int cardinal() {
+<span class="fc" id="L91">        int som = 0;</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">            if (present[i] == true) {</span>
+<span class="fc" id="L94">                som += 1;</span>
+            }
+        }
+<span class="fc" id="L97">        return som;</span>
+    }
+    
+    /**
+     * Permet d'ajouter un indice à l'ensemble écoutant
+     * @param a caractère à ajouter à l'ensemble 
+     * @return l'ensemble écoutant
+     */
+    public EnsembleDeLettres ajouterCaractere(char a){
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        if (!(this.present[charToIndice(a)])){</span>
+<span class="fc" id="L107">            this.present[charToIndice(a)] = true;</span>
+        }
+<span class="fc" id="L109">        return this;</span>
+    }
+    
+    /**
+     * Permet de tester si l'ensemble e est inclus dans l'ensemble écoutant
+     *
+     * @param e ensemble dont l'inclusion est testée
+     * @return vrai si l'ensemble e est inclus dans l'ensemble écoutant, faux
+     * s'il n'est pas inclus
+     */
+    public boolean inclus(EnsembleDeLettres e) {
+<span class="fc" id="L120">        int i = 0;</span>
+<span class="fc" id="L121">        boolean ok = true;</span>
+<span class="fc bfc" id="L122" title="All 4 branches covered.">        while (i &lt; present.length &amp;&amp; ok) {</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">            if (e.present[i]) {</span>
+<span class="fc" id="L124">                ok &amp;= this.present[i];</span>
+            }
+<span class="fc" id="L126">            i++;</span>
+        }
+<span class="fc" id="L128">        return ok;</span>
+    }
+
+    /**
+     * Test si le caractère donné en paramètre est présent dans l'ensemble
+     *
+     * @param a caractère à chercher dans l'ensemble
+     * @return true si le caractère a est présent sinon false
+     */
+    public boolean estPresent(char a) {
+        //transforme un caractère majuscule en minuscule
+<span class="fc" id="L139">        int valueLettre = (int) a;</span>
+<span class="fc bfc" id="L140" title="All 4 branches covered.">        if (valueLettre &gt;= 65 &amp;&amp; valueLettre &lt;= 90) {</span>
+<span class="fc" id="L141">            valueLettre += 32;</span>
+<span class="fc" id="L142">            a = (char) valueLettre;</span>
+        }
+        //vérifie que le caractère demandé est bien un caractère dans l'intervalle [a...z]
+<span class="fc bfc" id="L145" title="All 4 branches covered.">        if (charToIndice(a) &gt;= 0 &amp;&amp; charToIndice(a) &lt; 26) {</span>
+<span class="fc" id="L146">            return present[charToIndice(a)];</span>
+        }
+        //dans le cas ou le caractère recherché n'est pas dans l'intervalle [a...z] renvoie false
+<span class="fc" id="L149">        return false;</span>
+    }
+
+    /**
+     * Créé un nouvelle ensemble formé de l'intersection de deux ensembles
+     * l'algorithme se base sur le tableau de booléens.
+     *
+     * @param e ensemble utilisé pour créer l'intersetion avec l'ensemble
+     * écoutant
+     * @return le nouvelle ensemble créé
+     */
+    public EnsembleDeLettres intersection(EnsembleDeLettres e) {
+<span class="fc" id="L161">        EnsembleDeLettres e1 = new EnsembleDeLettres(true);</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+<span class="fc bfc" id="L163" title="All 4 branches covered.">            e1.present[i] = (this.estPresent(indiceToChar(i)) &amp;&amp; e.estPresent(indiceToChar(i)));</span>
+        }
+<span class="fc" id="L165">        return e1;</span>
+    }
+
+    /**
+     * Créé un nouvelle ensemble formé de l'intersection de deux ensembles
+     * l'algorithme se base sur la création de la chaine de caractère de l'intersection et
+     * utilise cette dernière pour créer le nouvel ensemble. (objet de type String)
+     *
+     * @param e ensemble utilisé pour créer l'intersetion avec l'ensemble
+     * écoutant
+     * @return le nouvelle ensemble créé
+     */
+    public EnsembleDeLettres intersection1(EnsembleDeLettres e) {
+<span class="fc" id="L178">        String chaineIntersection = &quot;&quot;;</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">            if (this.present[i]) {</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">                if (e.present[i]) {</span>
+<span class="fc" id="L182">                    chaineIntersection += indiceToChar(i);</span>
+                } 
+            }
+        }
+<span class="fc" id="L186">        EnsembleDeLettres e1 = new EnsembleDeLettres(chaineIntersection);</span>
+<span class="fc" id="L187">        return e1;</span>
+    }
+    
+    /**
+     * Créé un nouvelle ensemble formé de l'intersection de deux ensembles
+     * l'algorithme se base sur la création de la chaine de caractère de l'intersection et
+     * utilise cette dernière pour créer le nouvel ensemble. (objet de type StringBuilder)
+     * @param e ensemble utilisé pour créer l'intersetion avec l'ensemble
+     * écoutant
+     * @return le nouvelle ensemble créé
+     */
+    public EnsembleDeLettres intersection2(EnsembleDeLettres e) {
+<span class="fc" id="L199">        StringBuilder chaineIntersection = new StringBuilder(100);</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+<span class="fc bfc" id="L201" title="All 2 branches covered.">            if (this.present[i]) {</span>
+<span class="fc bfc" id="L202" title="All 2 branches covered.">                if (e.present[i]) {</span>
+<span class="fc" id="L203">                    chaineIntersection.append(indiceToChar(i));</span>
+                } 
+            }
+        }
+<span class="fc" id="L207">        EnsembleDeLettres e1 = new EnsembleDeLettres(chaineIntersection.toString());</span>
+<span class="fc" id="L208">        return e1;</span>
+    }
+    
+        /**
+         * Créé un nouvelle ensemble formé de l'union de deux ensembles
+         *
+         * @param e ensemble utilisé pour créer l'union avec l'ensemble écoutant
+         * @return le nouvelle ensemble créé
+         */
+    public EnsembleDeLettres union(EnsembleDeLettres e) {
+<span class="fc" id="L218">        EnsembleDeLettres e1 = new EnsembleDeLettres(true);</span>
+<span class="fc bfc" id="L219" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+<span class="pc bpc" id="L220" title="1 of 4 branches missed.">            e1.present[i] = (this.present[i] || e.present[i]);</span>
+        }
+<span class="fc" id="L222">        return e1;</span>
+    }
+
+    /**
+     * Créé un nouvelle ensemble formé de la différence de deux ensembles
+     *
+     * @param e ensemble utilisé pour créer la différence avec l'ensemble
+     * écoutant
+     * @return le nouvelle ensemble créé
+     */
+    public EnsembleDeLettres difference(EnsembleDeLettres e) {
+<span class="fc" id="L233">        EnsembleDeLettres e1 = new EnsembleDeLettres(true);</span>
+<span class="fc bfc" id="L234" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+<span class="fc bfc" id="L235" title="All 2 branches covered.">            if (this.present[i]) {</span>
+<span class="fc bfc" id="L236" title="All 2 branches covered.">                if (e.present[i]) {</span>
+<span class="pc bpc" id="L237" title="1 of 2 branches missed.">                    e1.present[i] = !(e.present[i]);</span>
+                } else {
+<span class="pc bpc" id="L239" title="1 of 2 branches missed.">                    e1.present[i] = !(e.present[i]);</span>
+                }
+            }
+        }
+<span class="fc" id="L243">        return e1;</span>
+    }
+
+    /**
+     * Créé un nouvelle ensemble formé de l'union disjointe de deux ensembles
+     * (sans les éléments présent dans les deux ensembles)
+     *
+     * @param e ensemble utilisé pour créer l'union disjointe avec l'ensemble
+     * écoutant
+     * @return le nouvelle ensemble créé
+     */
+    public EnsembleDeLettres unionDisjointe(EnsembleDeLettres e) {
+<span class="fc" id="L255">        EnsembleDeLettres e1 = new EnsembleDeLettres(true);</span>
+<span class="fc bfc" id="L256" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+<span class="fc bfc" id="L257" title="All 2 branches covered.">            if (this.present[i]) {</span>
+<span class="fc bfc" id="L258" title="All 2 branches covered.">                if (e.present[i]) {</span>
+<span class="pc bpc" id="L259" title="3 of 4 branches missed.">                    e1.present[i] = !(this.present[i] || e.present[i]);</span>
+                } else {
+<span class="pc bpc" id="L261" title="3 of 4 branches missed.">                    e1.present[i] = (this.present[i] || e.present[i]);</span>
+                }
+            } else {
+<span class="pc bpc" id="L264" title="2 of 4 branches missed.">                e1.present[i] = (this.present[i] || e.present[i]);</span>
+            }
+        }
+<span class="fc" id="L267">        return e1;</span>
+    }
+
+    /**
+     * Evalue si deux ensembles sont égaux, c'est à dire possède les mêmes
+     * caractères
+     *
+     * @param e l'ensemble comparé à l'ensemble écoutant
+     * @return true si l'ensemble e et l'ensemble écoutant sont égaux, false
+     * sinon.
+     */
+    public boolean equal(EnsembleDeLettres e) {
+<span class="fc" id="L279">        boolean ok = true;</span>
+<span class="fc bfc" id="L280" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+<span class="fc bfc" id="L281" title="All 2 branches covered.">            ok &amp;= (this.present[i] == e.present[i]);</span>
+        }
+<span class="fc" id="L283">        return ok;</span>
+    }
+
+    private static int charToIndice(char lettre) {
+        int indice;
+<span class="fc" id="L288">        indice = (int) lettre;</span>
+<span class="fc" id="L289">        indice -= 97;</span>
+<span class="fc" id="L290">        return indice;</span>
+    }
+
+    private static char indiceToChar(int i) {
+        char lettre;
+<span class="fc" id="L295">        i += 97;</span>
+<span class="fc" id="L296">        lettre = (char) i;</span>
+<span class="fc" id="L297">        return lettre;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

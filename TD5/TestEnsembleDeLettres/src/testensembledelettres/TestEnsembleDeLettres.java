@@ -44,34 +44,33 @@ public class TestEnsembleDeLettres {
         EnsembleDeLettres e6 = new EnsembleDeLettres("abcdy");
         EnsembleDeLettres e7 = new EnsembleDeLettres("cdxyz");
         
-        
-        e4.afficher();
+        System.out.println(e4.afficher());
         System.out.println(e4.cardinal());
-        e5.afficher();
+        System.out.println(e5.afficher());
         System.out.println(e5.cardinal());
-        e6.afficher();
+        System.out.println(e6.afficher());
         System.out.println(e6.cardinal());
-        e7.afficher();
+        System.out.println(e7.afficher());
         System.out.println("l'intersection");
-        e6.intersection(e7).afficher();
+        System.out.println(e6.intersection(e7).afficher());
         System.out.println("l'intersection1");
-        e6.intersection1(e7).afficher();
+        System.out.println(e6.intersection1(e7).afficher());
         System.out.println("l'intersection2");
-        e6.intersection2(e7).afficher();
+        System.out.println(e6.intersection2(e7).afficher());
         System.out.println("l'union");
-        e6.union(e7).afficher();
+        System.out.println(e6.union(e7).afficher());
         System.out.println("la différence");
-        e6.difference(e7).afficher();
+        System.out.println(e6.difference(e7).afficher());
         System.out.println("inclusion");
         System.out.println(e6.inclus(e7));
         System.out.println("l'union disjointe");
-        e6.unionDisjointe(e7).afficher();
+        System.out.println(e6.unionDisjointe(e7).afficher());
         System.out.println("égalité");
         System.out.println(e6.equal(e7));
         System.out.println("e7 avant ajout");
-        e7.afficher();
+        System.out.println(e7.afficher());
         System.out.println("ajout de 't' à e7");
-        e7.ajouterCaractere('t').afficher();
+        System.out.println(e7.ajouterCaractere('t').afficher());
         
         
     }

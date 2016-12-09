@@ -46,24 +46,27 @@ public class EnsembleDeLettres {
 
     /**
      * Affiche l'ensemble entre accolade et les éléments séparés par des espaces
+     * @return retourne la chaine de caractère représentant le tableau
      */
-    public void afficher() {
+    public String afficher() {
+        String e;
         int j = present.length - 1;
         while (j > 0 && present[j] != true) {
             j--;
         }
         int max = j;
-        System.out.print("{");
+        e ="{";
         for (int i = 0; i < present.length; i++) {
             if (present[i] == true) {
                 if (i != max) {
-                    System.out.print(indiceToChar(i) + ",");
+                    e += indiceToChar(i) + ",";
                 } else {
-                    System.out.print(indiceToChar(i));
+                    e += "" + indiceToChar(i);
                 }
             }
         }
-        System.out.println("}");
+        e += "}";
+        return e;
     }
 
     /**

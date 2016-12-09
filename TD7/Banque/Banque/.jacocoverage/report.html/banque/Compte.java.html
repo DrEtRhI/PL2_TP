@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Compte.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Banque&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">banque</a> &gt; <span class="el_source">Compte.java</span></div><h1>Compte.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package banque;
+
+/**
+ *
+ * @author thierrye
+ */
+public class Compte {
+
+    private final int noCompte;
+<span class="fc" id="L15">    private static int nbCompte = 0;</span>
+    private final String nom;
+    private final String prenom;
+<span class="fc" id="L18">    private double solde = 0;</span>
+<span class="fc" id="L19">    private double decouvertMax = 800;</span>
+<span class="fc" id="L20">    private double retraitMax = 1000;</span>
+<span class="fc" id="L21">    private boolean etat = true;</span>
+
+    /**
+     * Constructeur 1 Permet de créer un compte standard avec un prénom et nom
+     *
+     * @param prenom du titulaire
+     * @param nom du titutlaire
+     */
+<span class="fc" id="L29">    public Compte(String prenom, String nom) {</span>
+<span class="fc" id="L30">        this.nom = nom;</span>
+<span class="fc" id="L31">        this.prenom = prenom;</span>
+<span class="fc" id="L32">        nbCompte++;</span>
+<span class="fc" id="L33">        this.noCompte = nbCompte;</span>
+
+<span class="fc" id="L35">    }</span>
+
+    /**
+     * Constructeur 2 Permet de créer un compte avec un prénom et nom et un
+     * solde donné
+     *
+     * @param prenom du titulaire
+     * @param nom du titutlaire
+     * @param solde montant crédité sur le compte
+     */
+<span class="fc" id="L45">    public Compte(String prenom, String nom, double solde) {</span>
+<span class="fc" id="L46">        this.nom = nom;</span>
+<span class="fc" id="L47">        this.prenom = prenom;</span>
+<span class="fc" id="L48">        nbCompte++;</span>
+<span class="fc" id="L49">        this.noCompte = nbCompte;</span>
+<span class="fc" id="L50">        this.solde = solde;</span>
+
+<span class="fc" id="L52">    }</span>
+
+    /**
+     * Constructeur 3 Permet de créer un compte avec un prénom et nom, un solde
+     * donné, un découvert max donné et un retrait max donné
+     *
+     * @param prenom du titulaire
+     * @param nom du titutlaire
+     * @param solde montant crédité sur le compte
+     * @param decouvertMax fixe la limite du découvert
+     * @param retraitMax fixe la limite d'un retrait
+     */
+<span class="fc" id="L64">    public Compte(String prenom, String nom, double solde, double decouvertMax, double retraitMax) {</span>
+<span class="fc" id="L65">        this.nom = nom;</span>
+<span class="fc" id="L66">        this.prenom = prenom;</span>
+<span class="fc" id="L67">        nbCompte++;</span>
+<span class="fc" id="L68">        this.noCompte = nbCompte;</span>
+<span class="fc" id="L69">        this.solde = solde;</span>
+<span class="fc" id="L70">        this.retraitMax = retraitMax;</span>
+<span class="fc" id="L71">        this.decouvertMax = decouvertMax;</span>
+
+<span class="fc" id="L73">    }</span>
+
+    public void setSolde(double solde) {
+<span class="fc" id="L76">        this.solde = solde;</span>
+<span class="fc" id="L77">    }</span>
+
+    public void setDecouvertMax(double decouvertMax) {
+<span class="fc" id="L80">        this.decouvertMax = decouvertMax;</span>
+<span class="fc" id="L81">    }</span>
+
+    public void setRetraitMax(double retraitMax) {
+<span class="fc" id="L84">        this.retraitMax = retraitMax;</span>
+<span class="fc" id="L85">    }</span>
+
+    public double getDecouvert() {
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">        if (this.solde &lt; 0) {</span>
+<span class="nc" id="L89">            return Math.abs(solde);</span>
+        } else {
+<span class="fc" id="L91">            return 0;</span>
+        }
+    }
+
+    public int getNoCompte() {
+<span class="fc" id="L96">        return noCompte;</span>
+    }
+
+    public String getNom() {
+<span class="fc" id="L100">        return nom;</span>
+    }
+
+    public String getPrenom() {
+<span class="fc" id="L104">        return prenom;</span>
+    }
+
+    public double getSolde() {
+<span class="fc" id="L108">        return solde;</span>
+    }
+
+    public double getDecouvertMax() {
+<span class="fc" id="L112">        return decouvertMax;</span>
+    }
+
+    public double getRetraitMax() {
+<span class="fc" id="L116">        return retraitMax;</span>
+    }
+    
+    /**
+     * Fonction qui vérifie si le compte est à découvert
+     * @return revoie true si le compte est créditeur et false s'il est débiteur
+     */
+    public boolean isEtat() {
+<span class="fc bfc" id="L124" title="All 2 branches covered.">                this.etat = !(this.solde &lt; 0);</span>
+<span class="fc" id="L125">        return etat;</span>
+    }
+
+    /**
+     * Fonction permettant de retirer une somme du compte Le débit est possible
+     * seulement si la somme retirée est inférieur au retrait max et que le
+     * solde du compte après retrait est supérieur ou égal au découvert max.
+     * Dans le cas ou le retrait n'est pas possible un message indique que
+     * l'opération est impossible et pourquoi. La fonction vérifie que le
+     * paramètre x est une valeur positive &gt; 0. Si ce n'est pas le cas la
+     * fonction ne modifie pas le compte et affiche un message dans la console.
+     *
+     * @param x somme à débiter du compte
+     * @return true si le virement a pu être réalisé, false dans le cas
+     * contraire
+     */
+    public boolean debiter(double x) {
+<span class="fc" id="L142">        double soldeAvantVirement = this.solde;</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        if (x &gt; 0) {</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">            if (x &lt; this.retraitMax) {</span>
+<span class="fc" id="L145">                double testRetrait = this.solde - x;</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">                if (testRetrait &gt; (-this.decouvertMax)) {</span>
+<span class="fc" id="L147">                    this.solde -= x;</span>
+                } else {
+<span class="fc" id="L149">                    System.out.println(&quot;Opération impossible : le compte n° &quot; + this.noCompte + &quot; dépassera la limite de découvert maximale après opération.\n&quot;</span>
+                            + &quot;Le compte a actuellement un solde de  : &quot; + this.solde + &quot;€.&quot;);
+                }
+<span class="fc" id="L152">            } else {</span>
+<span class="fc" id="L153">                System.out.println(&quot;Opération impossible : la somme (&quot; + x + &quot;) à débiter dépasse le plafond maximal de retrait qui est actuellement fixé&quot;</span>
+                        + &quot;à : &quot; + this.retraitMax);
+            }
+        } else {
+<span class="fc" id="L157">            System.out.println(&quot;Opération impossible : la somme (&quot; + x + &quot;) indiquée pour le débit doit être strictement supérieure à 0&quot;);</span>
+        }
+<span class="fc bfc" id="L159" title="All 2 branches covered.">        return !(soldeAvantVirement == this.solde);</span>
+    }
+
+    /**
+     * Fonction permettant de crediter une somme du compte La fonction vérifie
+     * que le paramètre x est une valeur positive &gt; 0. Si ce n'est pas le cas la
+     * fonction ne modifie pas le compte et affiche un message dans la console.
+     *
+     * @param x somme à créditer sur le compte
+     */
+    public void crediter(double x) {
+<span class="pc bpc" id="L170" title="1 of 2 branches missed.">        if (x &gt; 0) {</span>
+<span class="fc" id="L171">            this.solde += x;</span>
+        } else {
+<span class="nc" id="L173">            System.out.println(&quot;Opération impossible : la somme (&quot; + x + &quot;) indiquée pour le crédit doit être strictement supérieure à 0&quot;);</span>
+        }
+<span class="fc" id="L175">    }</span>
+
+    /**
+     * La fonction permet de réaliser un virement d'une somme x de ce compte sur
+     * le compte c. Il faut vérifier pour ce compte que le virement est possible
+     * seulement si la somme retirée est inférieur au retrait max et que le
+     * solde du compte après retrait est supérieur ou égal au découvert max. La
+     * fonction vérifie que le paramètre x est une valeur positive &gt; 0. Si ce
+     * n'est pas le cas la fonction ne modifie pas le compte et affiche un
+     * message dans la console.
+     *
+     * @param c compte qui reçoit le virement
+     * @param x la somme du virement
+     */
+    public void virementSur(Compte c, double x) {
+<span class="fc bfc" id="L190" title="All 2 branches covered.">        if (this.debiter(x)) {</span>
+<span class="fc" id="L191">            c.crediter(x);</span>
+        } else {
+<span class="fc" id="L193">            System.out.println(&quot;OPÉRATION ANNULÉE&quot;);</span>
+        }
+<span class="fc" id="L195">    }</span>
+
+    /**
+     * Fonction qui retourne une chaine de caractère contenant toutes les
+     * informations sur le compte.
+     *
+     * @return Une string contenant les infos du compte
+     */
+    @Override
+    public String toString() {
+        String info;
+        String etatCompte;
+<span class="pc bpc" id="L207" title="1 of 2 branches missed.">        if (this.isEtat()){</span>
+<span class="fc" id="L208">            etatCompte = &quot;le compte est créditeur.&quot;;</span>
+        }else{
+<span class="nc" id="L210">            etatCompte = &quot;le compte est débiteur.&quot;;</span>
+        }
+        double debitAutorise;
+<span class="pc bpc" id="L213" title="1 of 2 branches missed.">            if (Math.abs(this.solde - this.retraitMax) &gt; this.decouvertMax){</span>
+<span class="fc" id="L214">                debitAutorise = this.retraitMax;</span>
+            }else{
+<span class="nc" id="L216">                debitAutorise = this.decouvertMax - Math.abs(this.solde);</span>
+            } 
+            
+<span class="fc" id="L219">        info = &quot;Numéro de compte : &quot; + this.noCompte + &quot;\n&quot;</span>
+                + &quot;Titulaire du compe : &quot; + this.prenom + &quot; &quot; + this.nom + &quot;\n&quot;
+                + &quot;Découvert maximal autorisé : &quot; + this.decouvertMax + &quot;\n&quot;
+                + &quot;Plafond de retrait maximal : &quot; + this.retraitMax + &quot;\n&quot;
+                + &quot;Situation du compte : &quot; + etatCompte + &quot;\n&quot;
+                + &quot;Débit maximal autorisé : &quot; + debitAutorise +&quot;€&quot;;
+<span class="fc" id="L225">        return info;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
