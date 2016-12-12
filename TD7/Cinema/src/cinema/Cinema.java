@@ -88,6 +88,10 @@ public class Cinema {
         System.out.println("Chiffre d'affaire de la soirée : " + recetteSoiree +"€");
         System.out.println("Taux d'occupation global : " + ((((double)totalPlacesNormales + (double)totalPlacesReduites) / (double)totalPlaces) * 10) + "%");
         
+        for (int i = 0; i < filmAffiche.length; i++){
+            filmAffiche[i].remiseAZero();
+            System.out.println(filmAffiche[i].toString());
+        }
     }
     
 }
