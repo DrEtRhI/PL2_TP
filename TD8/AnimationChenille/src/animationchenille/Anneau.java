@@ -67,7 +67,8 @@ public class Anneau {
      * @param py ordonnée du point
      */
     void placerA(int px, int py) {
-
+        this.x = px;
+        this.y = py;
     }
 
     /**

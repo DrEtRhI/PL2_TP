@@ -80,8 +80,8 @@ public class Dessin extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         // on dessine chacun des visages contenus dans la zone de dessin
-        for (Chenille v : listeDesChenilles) {
-            v.dessiner(g);
+        for (Chenille c : listeDesChenilles) {
+            c.dessiner(g);
         }
     }
 

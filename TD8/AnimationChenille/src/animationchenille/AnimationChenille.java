@@ -26,28 +26,28 @@ public class AnimationChenille  {
         //  affiche la fenêtre
         laFenetre.setVisible(true);
         
-        // création d'un anneau
         
-        // creation d'un objet Chenille
-        Chenille  c1 = new Chenille(10, 15, d);
+        // creation d'une liste d'objet Chenille
+        int nbCh = Integer.parseInt(args[0]);
+        Chenille[] lc = new Chenille[nbCh];
+        for (int i = 0; i < lc.length; i++){
+            lc[i] = new Chenille(10, 15, d);
+        }
         // on rajoute cet objet la zône de dessin
-        d.ajouterObjet(c1);
-        d.repaint();
-        /*
-        // création d'un deuxième visage
-        Chenille  c2 = new Chenille(8, 5, d);
-        
-        // ajout de cet objet à la zone de dessin
-        d.ajouterObjet(c2);
+        for ( Chenille c : lc){
+            d.ajouterObjet(c);
+            d.repaint();
+        }
         
         // la boucle d'animation
         // c'est une boucle infinie, le programme devra être interrompu
-        // par CTRL-C ou en cliquant dans le cas de fermeture de la fenêtre*/
+        // par CTRL-C ou en cliquant dans le cas de fermeture de la fenêtre
         while (true) {
             // les visages effectuent un déplacement élémentaire
             // en rebondissant sur les bords et en changeant d'expression
-            c1.deplacer();
-            //c2.deplacer();
+            for (Chenille c : lc){
+            c.deplacer();
+            }
             
             // la zone de dessin se réaffiche
             d.repaint();

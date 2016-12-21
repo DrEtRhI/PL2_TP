@@ -20,7 +20,7 @@ public class Chenille {
     public Chenille(int nbA, int r, Dessin d) {
         super();
         this.dess = d;
-        tete = new Tete(d.getLargeur()/2, d.getHauteur()/2, r, 0);
+        tete = new Tete(d.getLargeur()/2, d.getHauteur()/2, r, 33);
         corps = new Anneau[nbA];
         corps[0]= new Anneau(tete.x - r, tete.y, r);
         for (int i = 1; i < corps.length; i++){
@@ -32,20 +32,17 @@ public class Chenille {
 
     public void deplacer() {
         for (int i = corps.length - 1; i > 0; i--){
-            corps[i].x = corps[i-1].getX();
-            corps[i].y = corps[i-1].getY();
+            corps[i].placerA(corps[i-1].getX(), corps[i-1].getY());
         }
-        corps[0].x = tete.x;
-        corps[0].y = tete.y;
+        corps[0].placerA(tete.x, tete.y);
         
-        while (tete.capOK(dess.getLargeur(), dess.getHauteur())) {
-            tete.deplacerSelonCap();
+        while (!tete.capOK(dess.getWidth(), dess.getHeight())) {
+            tete.modifierCap();
         }
-        
+        tete.deplacerSelonCap();
     }
 
-
-public void dessiner(Graphics g) {
+    public void dessiner(Graphics g) {
         tete.dessiner(g);
         for (Anneau a : corps) {
             a.dessiner(g);

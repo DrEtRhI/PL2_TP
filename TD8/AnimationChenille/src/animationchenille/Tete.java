@@ -33,19 +33,19 @@ public class Tete extends Anneau {
     }
 
     public boolean capOK(int xMax, int yMax) {
+        this.modifierCap();
         int xPos = (int) Math.round(this.x + (this.r * Math.cos(cap)));
-        int yPos = (int) Math.round(this.x + (this.r * Math.sin(cap)));
-        return (xPos + this.r <= xMax) && (yPos + this.r >= yMax) && (xPos - this.r >= 0) && (yPos - this.r >= 0);
+        int yPos = (int) Math.round(this.y + (this.r * Math.sin(cap)));
+        return ((xPos + this.r <= xMax) && (yPos + this.r <= yMax) && (xPos - this.r >= 0) && (yPos - this.r >= 0));
     }
 
-    public void modifierCap(double delatCap) {
-        this.cap += Math.toRadians(delatCap);
+    public void modifierCap() {
+        this.cap += Math.toRadians(Math.random()*60 - 30);
     }
 
     public void deplacerSelonCap() {
-        this.modifierCap(Math.random()*60 - 30);
-        this.x = this.x + (this.r * (int) Math.cos(cap));
-        this.y = this.y + (this.r * (int) Math.sin(cap));
+        this.x = (int)Math.round(this.x + (this.r * Math.cos(cap)));
+        this.y = (int)Math.round(this.y + (this.r * Math.sin(cap)));
     }
 
     @Override
