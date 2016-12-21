@@ -16,7 +16,7 @@ public class PrixLot1 {
         int prix = (int) (1001 * Math.random());
         int essai;
         int nbEssais = 1;
-        System.out.print("Votre proposition 1  : ");
+        System.out.print("Votre proposition " + nbEssais + " : " );
         essai = sc.nextInt();
         while (essai != prix) {
             if (essai < prix) {
@@ -26,7 +26,7 @@ public class PrixLot1 {
             }
 
             nbEssais++;
-            System.out.print("Votre proposition 1  : ");
+            System.out.print("Votre proposition " + nbEssais + " : " );
             essai = sc.nextInt();
         }
         System.out.println("Bravo ! Vous avez trouvé le nombre caché en " + nbEssais + " essais.");

@@ -21,7 +21,7 @@ public class GestionMultiplex {
 
     private static String lireChaine(String prompt) {
         System.out.print(prompt);
-        return sc.nextLine();
+        return sc.next();
     }
 
     private static double lireDouble(String prompt) {
@@ -37,7 +37,7 @@ public class GestionMultiplex {
      */
     private static boolean lireOuiNon(String prompt) {
         System.out.print(prompt);
-        String rep = sc.nextLine();
+        String rep = sc.next();
         return rep.toUpperCase().startsWith("O");
     }
 
@@ -70,8 +70,7 @@ public class GestionMultiplex {
         while (!venteTerminee) {
 
             int numSalle = lireEntier("Numero de la salle (1 à " + lesSalles.length + ") ou 0 pour terminer : ");
-
-            if ((numSalle >= 0) && (numSalle < lesSalles.length)) {
+            if ((numSalle > 0) && (numSalle <= lesSalles.length)) {
                 System.out.println("nombre de places encore disponibles : "
                         + lesSalles[numSalle - 1].getNbrePlacesDisponibles());
                 int nbPlaces;
@@ -83,7 +82,6 @@ public class GestionMultiplex {
                         ((tarifReduit) ? lesSalles[numSalle - 1].getPrixReduit() * nbPlaces : lesSalles[numSalle - 1].getPrixUnit() * nbPlaces) );
                 lesSalles[numSalle - 1].vendrePlaces(nbPlaces, tarifReduit);
             } else if (numSalle == 0) {
-                System.out.print("\nFin de la vente O/N ? ");
                 venteTerminee = lireOuiNon("\nFin de la vente O/N ? ");
             } else {
                 System.out.println("numéro de salle incorrect\n");
