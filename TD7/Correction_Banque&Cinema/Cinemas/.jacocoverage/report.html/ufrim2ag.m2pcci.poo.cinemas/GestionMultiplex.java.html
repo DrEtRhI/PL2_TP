@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>GestionMultiplex.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Cinemas&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ufrim2ag.m2pcci.poo.cinemas</a> &gt; <span class="el_source">GestionMultiplex.java</span></div><h1>GestionMultiplex.java</h1><pre class="source lang-java linenums">package ufrim2ag.m2pcci.poo.cinemas;
+
+import java.util.Scanner;
+
+/**
+ * programme de billeterie pour la gestion des salles d'un multiplex
+ *
+ * @author Philippe Genoud (Philippe.Genoud@imag.fr)
+ */
+<span class="nc" id="L10">public class GestionMultiplex {</span>
+
+<span class="nc" id="L12">    private static final Scanner sc = new Scanner(System.in);</span>
+
+    //----------------------------------------------------------------------------
+    // quelques méthodes utilitaires pour faire les lectures au clavier
+    //----------------------------------------------------------------------------
+    private static int lireEntier(String prompt) {
+<span class="nc" id="L18">        System.out.print(prompt);</span>
+<span class="nc" id="L19">        return sc.nextInt();</span>
+    }
+
+    private static String lireChaine(String prompt) {
+<span class="nc" id="L23">        System.out.print(prompt);</span>
+<span class="nc" id="L24">        return sc.nextLine();</span>
+    }
+
+    private static double lireDouble(String prompt) {
+<span class="nc" id="L28">        System.out.print(prompt);</span>
+<span class="nc" id="L29">        return sc.nextDouble();</span>
+    }
+
+    /**
+     * question de type Oui/Non
+     *
+     * @param prompt le message d'invite à afficher
+     * @return true si la réponse commence par 'o' ou 'O', false sinon
+     */
+    private static boolean lireOuiNon(String prompt) {
+<span class="nc" id="L39">        System.out.print(prompt);</span>
+<span class="nc" id="L40">        String rep = sc.nextLine();</span>
+<span class="nc" id="L41">        return rep.toUpperCase().startsWith(&quot;O&quot;);</span>
+    }
+
+    /**
+     * une méthode utilitaire pour créer une salle en lisant ses
+     * caractéristiques au clavier.
+     */
+    private static SalleCinema creerSalle() {
+<span class="nc" id="L49">        String nomFilm = lireChaine(&quot;\nNom du film : &quot;);</span>
+<span class="nc" id="L50">        int nbp = lireEntier(&quot;Nombre de places : &quot;);</span>
+<span class="nc" id="L51">        double pu = lireDouble(&quot;Prix d'une place (tarif normal) : &quot;);</span>
+<span class="nc" id="L52">        return new SalleCinema(nomFilm, nbp, pu);</span>
+    }
+
+    //--- le programme principal -----
+    public static void main(String[] args) {
+        SalleCinema[] lesSalles;  // déclare une référence vers un tableau de salles
+
+<span class="nc" id="L59">        int nbSalles = lireEntier(&quot;Nombre de salles du multiplex : &quot;);</span>
+
+<span class="nc" id="L61">        lesSalles = new SalleCinema[nbSalles];  // création de l'objet tableau</span>
+
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        for (int i = 0; i &lt; nbSalles; i++) {    // création de chacune des salles  </span>
+<span class="nc" id="L64">            lesSalles[i] = creerSalle();       // dans le tableau</span>
+        }
+
+<span class="nc" id="L67">        System.out.println(&quot;\nDEBUT DE LA VENTE&quot;);</span>
+<span class="nc" id="L68">        boolean venteTerminee = false;</span>
+
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        while (!venteTerminee) {</span>
+
+<span class="nc" id="L72">            int numSalle = lireEntier(&quot;Numero de la salle (1 à &quot; + lesSalles.length + &quot;) ou 0 pour terminer : &quot;);</span>
+
+<span class="nc bnc" id="L74" title="All 4 branches missed.">            if ((numSalle &gt;= 0) &amp;&amp; (numSalle &lt; lesSalles.length)) {</span>
+<span class="nc" id="L75">                System.out.println(&quot;nombre de places encore disponibles : &quot;</span>
+<span class="nc" id="L76">                        + lesSalles[numSalle - 1].getNbrePlacesDisponibles());</span>
+                int nbPlaces;
+                do {
+<span class="nc" id="L79">                    nbPlaces = lireEntier(&quot;Nombre de places à vendre : &quot;);</span>
+<span class="nc bnc" id="L80" title="All 4 branches missed.">                } while  (nbPlaces &lt; 0 || nbPlaces &gt; lesSalles[numSalle - 1].getNbrePlacesDisponibles());</span>
+<span class="nc" id="L81">                boolean tarifReduit = lireOuiNon(&quot;Tarif réduit O/N ? &quot;);</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">                System.out.println(&quot;prix à payer &quot; +</span>
+<span class="nc" id="L83">                        ((tarifReduit) ? lesSalles[numSalle - 1].getPrixReduit() * nbPlaces : lesSalles[numSalle - 1].getPrixUnit() * nbPlaces) );</span>
+<span class="nc" id="L84">                lesSalles[numSalle - 1].vendrePlaces(nbPlaces, tarifReduit);</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">            } else if (numSalle == 0) {</span>
+<span class="nc" id="L86">                System.out.print(&quot;\nFin de la vente O/N ? &quot;);</span>
+<span class="nc" id="L87">                venteTerminee = lireOuiNon(&quot;\nFin de la vente O/N ? &quot;);</span>
+            } else {
+<span class="nc" id="L89">                System.out.println(&quot;numéro de salle incorrect\n&quot;);</span>
+            }
+<span class="nc" id="L91">        }</span>
+
+        // affiche la situation de chacune des salle, calcule et affiche
+        // le chiffre d'affaire total.      
+<span class="nc" id="L95">        double caTotal = 0.0;</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        for (int i = 0; i &lt; lesSalles.length; i++) {</span>
+<span class="nc" id="L97">            System.out.println(&quot;-----------------------------------&quot;);</span>
+<span class="nc" id="L98">            System.out.println(&quot;Salle numéro : &quot; + (i + 1));</span>
+<span class="nc" id="L99">            System.out.println(lesSalles[i]);</span>
+<span class="nc" id="L100">            System.out.println(&quot;Chiffre d'affaires &quot; + lesSalles[i].chiffreAffaires());</span>
+<span class="nc" id="L101">            caTotal = caTotal + lesSalles[i].chiffreAffaires();</span>
+        }
+<span class="nc" id="L103">        System.out.println(&quot;-----------------------------------\n\n&quot;);</span>
+<span class="nc" id="L104">        System.out.println(&quot;Chiffre d'affaires total : &quot; + caTotal);</span>
+<span class="nc" id="L105">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>EnsembleDeLettres1.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;CorrectionEnsemble1&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ufrim2ag.m2pcci.pl2.tp4</a> &gt; <span class="el_source">EnsembleDeLettres1.java</span></div><h1>EnsembleDeLettres1.java</h1><pre class="source lang-java linenums">package ufrim2ag.m2pcci.pl2.tp4;
+
+import java.util.Arrays;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+/**
+ * Représente un ensemble de lettres sans répétition (une lettre n'apparait
+ * qu'une seule fois). Les éléments de ces ensembles sont les lettres minuscules
+ * de l'alphabet ('a' à 'z').
+ *
+ * @author Philippe Genoud (Philippe.Genoud@imag.fr)
+ */
+public class EnsembleDeLettres1 {
+
+    /**
+     * constante : nombre de lettres de l'alphabet
+     */
+    public static final int NB_LETTRES_ALPHABET = 26;
+
+    //--------- Attributs ------------------------------------------------------
+    /**
+     * Représente l'ensemble.&lt;br&gt;
+     * present[i] == true signifie que la ième lettre de l'alphabet appartient à
+     * cet ensemble, sinon present[i] = false;
+     */
+<span class="fc" id="L27">    private final boolean[] present = new boolean[NB_LETTRES_ALPHABET];</span>
+
+    //--------- Constructeurs --------------------------------------------------
+    /**
+     * Construit un ensembe de lettres vide.
+     */
+<span class="fc" id="L33">    public EnsembleDeLettres1() {</span>
+<span class="fc" id="L34">    }</span>
+
+    /**
+     * crée un ensemble de n lettres tiré au hazard
+     *
+     * @param n le nombre de lettres de l'ensemble
+     */
+<span class="fc" id="L41">    public EnsembleDeLettres1(int n) {</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (n == 0) {   // on crée un ensemble vide, rien à faire</span>
+<span class="fc" id="L43">            return;</span>
+        }
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        for (int i = 0; i &lt; n; i++) {</span>
+<span class="fc" id="L46">            present[i] = true;</span>
+        }
+
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (n == NB_LETTRES_ALPHABET) { // l'ensemble contient toutes les lettres, rien de plus à faire</span>
+<span class="fc" id="L50">            return;</span>
+        }
+        // on mélange le tableau, pour cela un algorithme de Fisher–Yates 
+        // est utilisé.
+        // pour en savoir plus voir: 
+        // http://stackoverflow.com/questions/1519736/random-shuffling-of-an-array
+        // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+<span class="fc" id="L57">        Random rnd = ThreadLocalRandom.current();</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        for (int i = present.length - 1; i &gt; 0; i--) {</span>
+<span class="fc" id="L59">            int index = rnd.nextInt(i + 1);</span>
+            // Simple swap
+<span class="fc" id="L61">            boolean a = present[index];</span>
+<span class="fc" id="L62">            present[index] = present[i];</span>
+<span class="fc" id="L63">            present[i] = a;</span>
+        }
+<span class="fc" id="L65">    }</span>
+
+    /**
+     * Construit un ensemble de lettres à partir d'une chaîne de caractères.
+     * Tous les caractères de la chaîne correspondants à une lettre de
+     * l'alphabet sont convertis en minuscule et insérés dans l'ensemble ainsi
+     * créé, les autres caractères de la chaîne sont ignorés
+     *
+     * @param s la chaîne servant à construire l'ensemble de lettres
+     */
+<span class="fc" id="L75">    public EnsembleDeLettres1(String s) {</span>
+<span class="fc" id="L76">        s = s.toLowerCase();  // convertit la chaîne en minuscules</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        for (int i = 0; i &lt; s.length(); i++) {</span>
+<span class="fc" id="L78">            ajouter(s.charAt(i));</span>
+        }
+<span class="fc" id="L80">    }</span>
+
+    //----- méthodes privées, ne peuvent être invoquées que dans
+    //----- la classe.
+    /**
+     * renvoie pour un caractère donné sa position dans l'alphabet (la position
+     * 0 correspondant à la lettre 'a').
+     *
+     * @param c le caractère dont on veut la position
+     * @return la position de ce caractère dans l'alphabet
+     * @see toChar
+     */
+    private int toCode(char c) {
+<span class="fc" id="L93">        return c - 'a';</span>
+    }
+
+    /**
+     * renvoie pour une position donnée le caractère correspondant dans
+     * l'alphabet (le caractère 'a' correspond à la position 0)
+     *
+     * @param code la position dans le code dont on veut connaître le caractère
+     * correspondant
+     * @return le caractère correspondant à cette position
+     * @see toCode
+     */
+    private char toChar(int code) {
+<span class="fc" id="L106">        return (char) ('a' + code);</span>
+
+    }
+
+    //----- méthodes publiques -------------------------------------------------
+    /**
+     * ajoute une lettre à l'ensemble
+     *
+     * @param c la lettre à ajouter à l'ensemble (si c n'est pas une lettre
+     * minuscule de l'alphabet cette méthode est sans effet).
+     */
+    public final void ajouter(char c) {
+<span class="fc" id="L118">        int code = toCode(c);</span>
+<span class="fc bfc" id="L119" title="All 4 branches covered.">        if ((0 &lt;= code) &amp;&amp; (code &lt; NB_LETTRES_ALPHABET)) {</span>
+<span class="fc" id="L120">            present[code] = true;</span>
+        }
+<span class="fc" id="L122">    }</span>
+
+    /**
+     * teste l'appartenance d'un caractère à l'ensemble
+     *
+     * @param c le caractère pour lequel l'appartenance est testée
+     * @return true si c appartient à l'ensemble , false sinon
+     */
+    public boolean contient(char c) {
+<span class="fc" id="L131">        int code = toCode(c);</span>
+<span class="fc bfc" id="L132" title="All 6 branches covered.">        return (code &gt;= 0 &amp;&amp; code &lt; present.length &amp;&amp; present[code]);</span>
+    }
+
+    /**
+     * renvoie une représentation textuelle de cet ensemble. On redéfinit
+     * (override) la méthode toString() standard qui renvoie le nom de la classe
+     * de l'objet + son &quot;adresse mémoire&quot;.
+     *
+     * @return une chaîne représentant l'ensemble. Par exemple, pour l'ensemble
+     * contenant les lettres 'a' 'z', 'e', 'r' 't' 'y' la chaîne retournée sera
+     * &quot;{'a','e','r','t','y','z'}&quot;, pour l'ensemble vide la chaîne retournée
+     * sera &quot;{}&quot;.
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L147">        StringBuilder res = new StringBuilder(&quot;{&quot;); // on préfère lorsque que</span>
+        // de nombreuses concaténations de chaînes sont effectuées, utiliser
+        // un StringBuilder plutôt qu'un String ce qui se révèle beaucoup 
+        // plus performant (voir notes de cours).
+<span class="fc" id="L151">        boolean dejaElement = false;  // indique si la chaîne résultat contient ou non</span>
+        // déjà un élément. Si c'est le cas, il faudra
+        // mettre une virgule entre cet élément et le
+        // nouvel élément à ajouter.
+<span class="fc bfc" id="L155" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">            if (present[i]) {</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">                if (dejaElement) {</span>
+<span class="fc" id="L158">                    res.append(&quot;,&quot;);</span>
+<span class="fc" id="L159">                    res.append(toChar(i));</span>
+                } else {
+<span class="fc" id="L161">                    res.append(toChar(i));</span>
+<span class="fc" id="L162">                    dejaElement = true;</span>
+                }
+            }
+        }
+<span class="fc" id="L166">        res.append(&quot;}&quot;);</span>
+<span class="fc" id="L167">        return res.toString();    // convertit l'objet StringBuilder en objet String</span>
+    }
+
+    /**
+     * Donne le cardinal (nombre d'éléments) de l'ensemble.
+     *
+     * @return le cardinal de l'ensemble
+     */
+    public int cardinal() {
+<span class="fc" id="L176">        int c = 0;</span>
+        // on utilise une boucle foreach
+<span class="fc bfc" id="L178" title="All 2 branches covered.">        for (boolean b : present) { // pour chaque élément b du tableau présent</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">            if (b) {</span>
+<span class="fc" id="L180">                c++;   // si b vaut vrai, une lettre est présente, on la compte.</span>
+            }
+        }
+<span class="fc" id="L183">        return c;</span>
+//
+// avec une boucle for classique cela aurait donné :
+//        
+//        for (int i = 0; i &lt; present.length; i++) {
+//            if (present[i]) {
+//                c++;
+//            }
+//        }
+//        return c;
+//
+// avec une boucle while, je vous en fait cadeau !!! je n'ai pas envie de réfléchir ;-)
+    }
+
+    /**
+     * Indique si l'ensemble de lettres est vide ou non.
+     *
+     * @return true si l'ensemble est vide, false sinon
+     */
+    public boolean estVide() {
+<span class="fc bfc" id="L203" title="All 2 branches covered.">        for (boolean b : present) {</span>
+<span class="fc bfc" id="L204" title="All 2 branches covered.">            if (b) {   // il y a un booléen à true dans le tableau</span>
+<span class="fc" id="L205">                return false;  // donc l'ensemble n'est pas vide</span>
+                // inutile d'aller plus loin, on sort de la fonction avec la
+                // valeur faux et on retourne au programme appelant.
+            }
+        }
+        // on est sorti de la boucle, on a donc parcouru tout le tableau
+        // et aucun n'élément n'a la valeur true : l'ensemble est vide
+<span class="fc" id="L212">        return true;</span>
+//      
+//      même algo avec une boucle for &quot;classique&quot;
+//        for (int i = 0; i &lt; present.length; i++) {
+//            if (present[i]) { // present[i] == true
+//                return false;  // donc l'ensemble n'est pas vide
+//            }		       // inutile d'aller plus loin
+//        }
+//        return true;
+    }
+
+    /**
+     * Teste l'inclusion de cet ensemble (this) dans un autre ensemble (e).
+     *
+     * @param e l'ensemble par rapport auquel on teste l'inclusion
+     * @return true si l'ensemble est inclus dans e, false sinon
+     */
+    public boolean estInclus(EnsembleDeLettres1 e) {
+<span class="fc bfc" id="L230" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+<span class="fc bfc" id="L231" title="All 4 branches covered.">            if (this.present[i] &amp;&amp; !e.present[i]) {</span>
+<span class="fc" id="L232">                return false; // l'élément i est présent dans l'ensemble this</span>
+            }		      // mais pas dans l'ensemble e, donc this n'est
+        }		      // pas inclus dans e.
+
+        // on a pacouru tout l'ensemble (this) et tous les éléments de
+        // celui-ci sont aussi éléments de e, donc this est inclus dans e
+<span class="fc" id="L238">        return true;</span>
+    }
+
+    // pour l'intersection trois algorithmes sont proposés cela nous permettra
+    // de discuter performances, et de la bonne utilisation des chaînes de
+    // caractères en Java.
+    /**
+     * Construit l'intersection de cet ensemble avec un autre ensemble
+     * l’algorithme travaille sur des chaînes de caractères. Il construit une
+     * chaîne contenant toute les lettres présentes dans l'ensemble
+     * intersection2 et crée ensuite l'ensemble résultat à partir de cette
+     * chaîne. L'algorithme utilise uniquement des objets de type String pour
+     * construire cette chaîne.
+     *
+     * @param e l'ensemble par rapport auquel on calcule l'intersection
+     * @return l'ensemble correspondant à l'intersection de cet ensemble (this)
+     * et de l'ensemble e.
+     */
+    public EnsembleDeLettres1 intersection1(EnsembleDeLettres1 e) {
+<span class="fc" id="L257">        String inter = &quot;&quot;;</span>
+<span class="fc bfc" id="L258" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+            // l'element i est dans l'intersection si il est dans this ET dans e
+<span class="fc bfc" id="L260" title="All 4 branches covered.">            if (this.present[i] &amp;&amp; e.present[i]) {</span>
+<span class="fc" id="L261">                inter += toChar(i);</span>
+            }
+        }
+<span class="fc" id="L264">        return new EnsembleDeLettres1(inter);</span>
+    }
+
+    /**
+     * Construit l'intersection de cet ensemble avec un autre ensemble
+     * l’algorithme travaille uniquement sur le tableau de booleens.
+     *
+     * @param e l'ensemble par rapport auquel on calcule l'intersection
+     * @return l'ensemble correspondant à l'intersection de cet ensemble (this)
+     * et de l'ensemble e.
+     */
+    public EnsembleDeLettres1 intersection2(EnsembleDeLettres1 e) {
+<span class="fc" id="L276">        EnsembleDeLettres1 res = new EnsembleDeLettres1(); // res == ens vide</span>
+<span class="fc bfc" id="L277" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+            // l'element i est dans l'interection si il est dans this ET dans e
+<span class="fc bfc" id="L279" title="All 4 branches covered.">            res.present[i] = this.present[i] &amp;&amp; e.present[i];</span>
+        }
+<span class="fc" id="L281">        return res;</span>
+    }
+
+    /**
+     * Construit l'intersection de cet ensemble avec un autre ensemble
+     * l’algorithme travaille sur des chaînes de caractères. Il construit une
+     * chaîne contenant toute les lettres présentes dans l'ensemble intersection
+     * et crée ensuite l'ensemble résultat à partir de cette châine.
+     * L'algorithme utilise des objets de type StringBuilder pour construire
+     * cette chaîne (contrairement à l'algorithme d'intersection1 qui lui est
+     * basé sur des objets de type String).
+     *
+     * @param e l'ensemble par rapport auquel on calcule l'intersection
+     * @return l'ensemble correspondant à l'intersection de cet ensemble (this)
+     * et de l'ensemble e.
+     */
+    public EnsembleDeLettres1 intersection3(EnsembleDeLettres1 e) {
+<span class="fc" id="L298">        StringBuilder inter = new StringBuilder();</span>
+<span class="fc bfc" id="L299" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+            // l'element i est dans l'interection si il est dans this ET dans e
+<span class="fc bfc" id="L301" title="All 4 branches covered.">            if (this.present[i] &amp;&amp; e.present[i]) {</span>
+<span class="fc" id="L302">                inter.append(toChar(i));</span>
+            }
+        }
+<span class="fc" id="L305">        return new EnsembleDeLettres1(inter.toString());</span>
+    }
+
+    /**
+     * Construit l'union de cet ensemble avec un autre ensemble
+     *
+     * @param e l'ensemble avec lequel on calcule l'union
+     * @return l'ensemble correspondant à l'union de cet ensemble (this) et de
+     * l'ensemble e.
+     */
+    public EnsembleDeLettres1 union(EnsembleDeLettres1 e) {
+<span class="fc" id="L316">        EnsembleDeLettres1 res = new EnsembleDeLettres1(); // res == ens vide</span>
+<span class="fc bfc" id="L317" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+            // l'element i est dans l'union si il est dans this OU dans e
+<span class="fc bfc" id="L319" title="All 4 branches covered.">            res.present[i] = this.present[i] || e.present[i];</span>
+        }
+<span class="fc" id="L321">        return res;</span>
+    }
+
+    /**
+     * Construit la difference de cet ensemble avec un autre ensemble
+     *
+     * @param e l'ensemble avec lequel on calcule la différence
+     * @return l'ensemble correspondant à la différence de cet ensemble (this)
+     * et de l'ensemble e.
+     */
+    public EnsembleDeLettres1 difference(EnsembleDeLettres1 e) {
+<span class="fc" id="L332">        EnsembleDeLettres1 res = new EnsembleDeLettres1(); // res == ens vide</span>
+<span class="fc bfc" id="L333" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+            // l'element i est dans dans la difference de this avec e
+            // si il est dans this ET n'est pas dans e
+<span class="fc bfc" id="L336" title="All 4 branches covered.">            res.present[i] = this.present[i] &amp;&amp; !e.present[i];</span>
+        }
+<span class="fc" id="L338">        return res;</span>
+    }
+
+    /**
+     * Construit l'union disjointe de cet ensemble avec un autre ensemble
+     *
+     * @param e l'ensemble avec lequel on calcule l'union disjointe
+     * @return l'ensemble correspondant à l'unon disjointe de cet ensemble
+     * (this) et de l'ensemble e (c'est à dire l'ensemble contenant les élements
+     * de l'union de this avec e - les élements de l'intersection de this avec
+     * e).
+     */
+    public EnsembleDeLettres1 unionDisjointe(EnsembleDeLettres1 e) {
+
+        // une manière de l'écrire tiendrait en une ligne et serait
+        //
+        // return this.union(e).difference(this.intersection2(e));
+        //
+        // une autre manière de l'écrire qui évite de créer deux ensembles
+        // intermédiaires (l'intersection puis la difference) est la suivante
+<span class="fc" id="L358">        EnsembleDeLettres1 res = new EnsembleDeLettres1(); // res == ens vide</span>
+<span class="fc bfc" id="L359" title="All 2 branches covered.">        for (int i = 0; i &lt; present.length; i++) {</span>
+            // l'element i est dans dans l'union disjointe de this avec e
+            // si il est dans this ET n'est pas dans e OU si il est dans e et
+            // n'est pas dans this
+<span class="fc bfc" id="L363" title="All 8 branches covered.">            res.present[i] = this.present[i] &amp;&amp; !e.present[i]</span>
+                    || !this.present[i] &amp;&amp; e.present[i];
+        }
+<span class="fc" id="L366">        return res;</span>
+    }
+
+    // pour pouvoir tester l'égalité d'un ensemble avec un autre ensemble, il
+    // convient de redéfinir la méthode  public boolean equals(Object obj)
+    // qui est la méthode standard utilisée en Java pour vérifier l'égalité
+    // de deux objets.
+    //
+    // En particulier, la méthod assertEquals(Object expectedObj, Object actualObj) 
+    // de JUnit, teste l'égalité des deux objets via le message (apple de méthode)
+    // expectedObj.equals(actualObj);
+    @Override
+    public boolean equals(Object obj) {
+
+<span class="fc bfc" id="L380" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L381">            return true;</span>
+        }
+<span class="fc bfc" id="L383" title="All 2 branches covered.">        if (!(obj instanceof EnsembleDeLettres1)) {</span>
+<span class="fc" id="L384">            return false;</span>
+        }
+        //une alternative à la ligne ci-dessus pourrait être
+        //if ( obj == null || obj.getClass() != this.getClass() ) return false;
+
+        // transtyper (caster) la référence obj en une référence de type EnsembleDeLettres1
+        // est à ce stade une opération sûre.
+<span class="fc" id="L391">        EnsembleDeLettres1 e = (EnsembleDeLettres1) obj;</span>
+
+<span class="fc" id="L393">        return Arrays.equals(present, e.present);</span>
+    }
+
+    // 
+    // pour des raisons de cohérence, en particulier parcqu'elles sont utilisées
+    // de manière conjointe dans les collections (package java.util, en particulier pour
+    // les tables associatives (Maps)), il convient en général de définir équals
+    // conjointement avec la méthode hashCode.
+    @Override
+    public int hashCode() {
+<span class="fc" id="L403">        int hash = 3;</span>
+<span class="fc" id="L404">        hash = 31 * hash + Arrays.hashCode(this.present);</span>
+<span class="fc" id="L405">        return hash;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Compte.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Banque&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">banque</a> &gt; <span class="el_source">Compte.java</span></div><h1>Compte.java</h1><pre class="source lang-java linenums">package banque;
+
+/**
+ * Compte.java&lt;br&gt;
+ *
+ * Modélise un compte Bancaire.
+ *
+ * Un compte possède :
+ * &lt;ul&gt;
+ * &lt;li&gt;un numéro unique. Chaque compte possède un numéro différent fixé à la
+ * création du compte.&lt;/li&gt;
+ * &lt;li&gt;un titulaire (une Personne)&lt;/li&gt;
+ * &lt;li&gt;un debit maximal autorise&lt;/li&gt;
+ * &lt;li&gt;un decouvert maximal autorise&lt;/li&gt;
+ * &lt;li&gt;un solde (solde &gt;= -decouvert maximal autorisé).&lt;li&gt;
+ * &lt;/ul&gt;
+ *
+ * @author Philippe Genoud (LIG - STeamer)
+ */
+public class Compte {
+
+    //--------------------------------------------------------------------------
+    // constantes
+    //--------------------------------------------------------------------------  
+    /**
+     * le débit maximal autorisé par défaut
+     */
+    public static final double DEFAULT_DEBIT_MAX = 1000;
+    /**
+     * le découvert maximal autorisé par défaut
+     */
+    public static final double DEFAULT_DECOUVERT_MAX = 800;
+
+    //--------------------------------------------------------------------------
+    // attribut de l'objet Class Compte (variable de classe)
+    //--------------------------------------------------------------------------
+    /**
+     * un compteur du nombre de comptes précédemment créés, utilisé pour
+     * attribuer les numéros de compte.
+     */
+<span class="fc" id="L41">    static private int nbreComptesCréés = 0;</span>
+
+    //--------------------------------------------------------------------------
+    //attributs (variables d'instance) d'un objet compte
+    //--------------------------------------------------------------------------
+    /**
+     * le numéro du compte
+     */
+    private final int numero;  // le numero ne peut changer c'est pourquoi il est final
+    /**
+     * solde du compte (en euros)
+     */
+    private double solde;
+    /**
+     * decouvert maximal autorise (en euros)
+     */
+    private double decouvertMaxAutorisé;
+    /**
+     * débit maximal autorisé (en euros)
+     */
+    private double debitMaxAutorisé;
+    /**
+     * titulaire du compte
+     */
+    private final Personne titulaire; // le titualire ne peut changer c'est pourquoi il est final
+
+    //--------------------------------------------------------------------------
+    // Constructeurs
+    //--------------------------------------------------------------------------
+    /**
+     * Constructeur d'un compte.
+     *
+     * @param depotInitial le dépot initial sur le compte à sa création.
+     * &lt;code&gt;depotInitial&lt;/code&gt; doit être positif ou nul. 
+     *
+     * @param decouvertMaxAutorisé decouvert maximal autorisé pour ce compte. 
+     *
+     * @param debitMaxAutorisé débit maximal autorisé pour ce compte. 
+     *
+     * @param titulaire le titulaire du compte
+     * 
+     * @throws IllegalArgumentException si la valeur du paramètre  dépotInitial 
+     *       ou decouvertMaxAutorisé ou  débitMaxAutorisé est incorrecte, c'est 
+     *       à direun &lt; 0.
+     */
+    public Compte(Personne titulaire, double depotInitial, double decouvertMaxAutorisé,
+<span class="fc" id="L87">            double debitMaxAutorisé) {</span>
+<span class="fc bfc" id="L88" title="All 6 branches covered.">        if (depotInitial &lt; 0 || decouvertMaxAutorisé &lt;0 || debitMaxAutorisé &lt; 0 ) {</span>
+<span class="fc" id="L89">            throw new IllegalArgumentException(&quot;un compte ne peut être initialisé avec une valeur négative&quot;);</span>
+        }
+<span class="fc" id="L91">        nbreComptesCréés++;</span>
+<span class="fc" id="L92">        this.numero = nbreComptesCréés;</span>
+<span class="fc" id="L93">        this.solde = depotInitial;</span>
+<span class="fc" id="L94">        this.decouvertMaxAutorisé = decouvertMaxAutorisé;</span>
+<span class="fc" id="L95">        this.debitMaxAutorisé = debitMaxAutorisé;</span>
+<span class="fc" id="L96">        this.titulaire = titulaire;</span>
+<span class="fc" id="L97">    }</span>
+
+    /**
+     * Constructeur d'un compte. Seuls le titulaire est spécifié. Le solde
+     * initial est initialisé à 0 et le decouvert max et le debit max autorisés
+     * sont initialisés avec les valeurs par défaut.
+     *
+     * @param titulaire le titulaire du compte
+     */
+    public Compte(Personne titulaire) {
+<span class="fc" id="L107">        this(titulaire,0, DEFAULT_DECOUVERT_MAX, DEFAULT_DEBIT_MAX);</span>
+<span class="fc" id="L108">    }</span>
+
+    //--------------------------------------------------------------------------
+    // méthodes
+    //--------------------------------------------------------------------------  
+    //---------------------- accesseurs ----------------------------------------
+    public int getNumero() {
+<span class="fc" id="L115">        return numero;</span>
+    }
+
+    public double getSolde() {
+<span class="fc" id="L119">        return solde;</span>
+    }
+
+    public double getDecouvertMaxAutorisé() {
+<span class="fc" id="L123">        return decouvertMaxAutorisé;</span>
+    }
+
+    public double getDebitMaxAutorisé() {
+<span class="fc" id="L127">        return debitMaxAutorisé;</span>
+    }
+
+    public Personne getTitulaire() {
+<span class="fc" id="L131">        return titulaire;</span>
+    }
+
+    /**
+     * renvoie la situation de decouvert du compte.
+     *
+     * @return &lt;code&gt;true&lt;/code&gt; si le compte est à découvert,
+     * &lt;code&gt;false&lt;/code&gt; sinon.
+     */
+    public boolean estAdecouvert() {
+<span class="fc bfc" id="L141" title="All 2 branches covered.">        return (this.solde &lt; 0);</span>
+    }
+
+    /**
+     * renvoie le decouvert du compte.
+     *
+     * @return 0 si le solde du compte est positif ou nul, la valeur absolue du
+     * solde si il est negatif.
+     */
+    public double getDecouvert() {
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        return (this.solde &gt;= 0) ? 0 : -solde;</span>
+    }
+    
+    /**
+     * Calcule le débit autorisé en fonction du solde courant du compte, 
+     * du découvertMaxAutorisé et du debitMaxAutorisé.
+     * @return débit autorisé = Min(solde + decouvertMaxAutorisé, debitMaxAutorisé)
+     */
+    public double getDebitAutorise() {
+<span class="fc" id="L160">        return Math.min(solde + decouvertMaxAutorisé, debitMaxAutorisé);</span>
+    }
+
+    //---------------------- modifieurs ----------------------------------------
+    // uniquement pour les attributs decouvertMaxAutorisé et debitMaxAutorisé,
+    // le solde lui sera modifié par les opérations de débit, crédit et transfert
+    // et les autres attributs (titulaire et numero) sont finaux, ils ne peuvent
+    // être modifiés.
+    /**
+     * fixe le decouvert maximal autorisé.
+     *
+     * @param decouvertMaxAutorisé nouvelle valeur pour le découvert maximal.
+     * @throws IllegalArgumentException si l'opération n'a pu être effectuée car
+     * decouvertMaxAutorisé &lt; 0
+     */
+    public void setDecouvertMaxAutorisé(double decouvertMaxAutorisé) {
+<span class="fc bfc" id="L176" title="All 2 branches covered.">        if (decouvertMaxAutorisé &lt; 0) {</span>
+<span class="fc" id="L177">            throw new IllegalArgumentException(&quot;Decouvert Maximum Autorisé doit être positif ou nul&quot;);</span>
+        }
+<span class="fc" id="L179">        this.decouvertMaxAutorisé = decouvertMaxAutorisé;</span>
+<span class="fc" id="L180">    }</span>
+
+    /**
+     * fixe le débit maximal autorisé.
+     *
+     * @param debitMaxAutorisé nouvelle valeur pour le débit maximal.
+     * @throws IllegalArgumentException si l'opération n'a pu être effectuée car
+     * debitMaxAutorisé &lt;=0
+     */
+    public void setDebitMaxAutorisé(double debitMaxAutorisé) {
+<span class="fc bfc" id="L190" title="All 2 branches covered.">        if (debitMaxAutorisé &lt;= 0) {</span>
+<span class="fc" id="L191">            throw new IllegalArgumentException(&quot;Débit Maximum Autorisé doit être positif&quot;);</span>
+        }
+<span class="fc" id="L193">        this.debitMaxAutorisé = debitMaxAutorisé;</span>
+<span class="fc" id="L194">    }</span>
+
+    //--- opérations sur le compte ---------------------------------------------
+    /**
+     * depose la somme s sur le compte.
+     *
+     * @param s la somme à déposer. s doit être &gt; 0.
+     * @throws IllegalArgumentException si s &lt;= 0
+     */
+    public void crediter(double s) {
+<span class="fc bfc" id="L204" title="All 2 branches covered.">        if (s &lt; 0) {</span>
+<span class="fc" id="L205">            throw new IllegalArgumentException(&quot;Un compte ne peut être crédité avec une somme négative&quot;);</span>
+        }
+<span class="fc" id="L207">        solde = solde + s;</span>
+<span class="fc" id="L208">    }</span>
+
+    /**
+     * débite le compte d'un montant donné.
+     *
+     * @param r la somme à retirer
+     *
+     * @throws IllegalArgumentException si le montant spécifié pour le retrait
+     * est supérieur au retrait maximal possible ou inférieur à 0.
+     */
+    public void debiter(double r) {
+<span class="fc bfc" id="L219" title="All 2 branches covered.">        if (r &lt; 0) {</span>
+<span class="fc" id="L220">            throw new IllegalArgumentException(&quot;On ne peut débiter un compte avec une somme négative&quot;);</span>
+        }
+<span class="fc bfc" id="L222" title="All 2 branches covered.">        if (r &gt; getDebitAutorise()) {</span>
+<span class="fc" id="L223">            throw new IllegalArgumentException(&quot;Somme à débiter supérieure au retrait maximum possible&quot;);</span>
+        }
+<span class="fc" id="L225">        solde = solde - r;</span>
+<span class="fc" id="L226">    }</span>
+
+    /**
+     *
+     * effectue un virement vers un autre compte.
+     *
+     * @param c compte vers lequel le virement est effectué.
+     * @param r le montant du virement (la somme a retirer de ce compte (this)
+     * et à déposer sur l'autre compte (c)).
+     * 
+     * @throws IllegalArgumentException si le montant spécifié pour le retrait
+     * est supérieur au retrait maximal possible ou inférieur à 0.
+     */
+    public void virerVers(Compte c, double r) {
+<span class="fc" id="L240">        this.debiter(r);</span>
+<span class="fc" id="L241">        c.crediter(r);</span>
+<span class="fc" id="L242">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

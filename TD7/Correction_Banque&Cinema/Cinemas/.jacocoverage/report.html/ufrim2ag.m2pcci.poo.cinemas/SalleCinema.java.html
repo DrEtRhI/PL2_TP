@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SalleCinema.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Cinemas&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ufrim2ag.m2pcci.poo.cinemas</a> &gt; <span class="el_source">SalleCinema.java</span></div><h1>SalleCinema.java</h1><pre class="source lang-java linenums">package ufrim2ag.m2pcci.poo.cinemas;
+
+/**
+ * Classe SalleCinema.java
+ *
+ * @author Philippe Genoud
+ */
+public class SalleCinema {
+
+    public static final double TAUX_REDUCTION = 0.8;
+
+    /**
+     * film joué dans la salle
+     */
+    private String titreFilm;
+
+    /**
+     * nombre de places de la salle
+     */
+    private final int nbrePlaces;
+
+    /**
+     * prix unitaire (en €) d'une place (au tarif normal)
+     */
+    private double prixUnit;
+
+    /**
+     * nombre de places vendues au tarif normal
+     */
+<span class="fc" id="L30">    private int nbrePlacesTarifNormal = 0;</span>
+
+    /**
+     * nombre de places vendues au tarif réduit
+     */
+<span class="fc" id="L35">    private int nbrePlacesTarifReduit = 0;</span>
+
+    //---------------------------------------------------
+    // Constructeurs
+    //---------------------------------------------------
+    /**
+     * initialise une salle de cinéma en indiquant le nom du film joué, le
+     * nombre de places de la salle et le prix unitaire d'une place.
+     *
+     * @param titre titre du film joué dans la salle
+     * @param nbp nombre de places de la salle
+     * @param prix prix unitaire d'une place non numerotée
+     */
+<span class="fc" id="L48">    public SalleCinema(String titre, int nbp, double prix) {</span>
+<span class="fc" id="L49">        titreFilm = titre;</span>
+<span class="fc" id="L50">        nbrePlaces = nbp;</span>
+<span class="fc" id="L51">        prixUnit = prix;</span>
+
+<span class="fc" id="L53">    }</span>
+
+    /**
+     * indique le nombre de places non encore vendues dans la salle
+     *
+     * @return le nombre de places disponibles
+     */
+    public int getNbrePlacesDisponibles() {
+<span class="fc" id="L61">        return nbrePlaces - nbrePlacesTarifReduit - nbrePlacesTarifNormal;</span>
+    }
+
+    /**
+     * vente de places. Le nombre de place à acheter et le tarif (réduit ou non)
+     * sont indiqué. Si le nombre de places à acheter est superieur au nombre de
+     * places disponibles aucune vente n'est effectué.
+     *
+     * @param nbre nbre de places à acheter
+     * @param tarifReduit true si les places sont à acheter au tarif réduit,
+     *        false sinon
+     * @return true si la vente a pu être effectuée, false sinon
+     */
+    public boolean vendrePlaces(int nbre, boolean tarifReduit) {
+<span class="fc bfc" id="L75" title="All 4 branches covered.">        if ((nbre &gt; 0) &amp;&amp; (nbre &lt;= getNbrePlacesDisponibles())) {</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            if (tarifReduit) {</span>
+<span class="fc" id="L77">                nbrePlacesTarifReduit += nbre;</span>
+//                System.out.println(&quot;Prix à payer &quot; + nbre * TAUX_REDUCTION * prixUnit + &quot; euros&quot;);
+            } else {
+<span class="fc" id="L80">                nbrePlacesTarifNormal += nbre;</span>
+//               System.out.println(&quot;Prix à payer &quot; + nbre * prixUnit + &quot; euros&quot;);
+            }
+<span class="fc" id="L83">            return true;</span>
+        } else {
+            //      System.out.println(&quot;nombre de place demandé incorrect&quot;);
+<span class="fc" id="L86">            return false;</span>
+        }
+    }
+
+    /**
+     * remet à zero les compteurs de nombre de places vendues.
+     */
+    public void remiseAZero() {
+<span class="fc" id="L94">        nbrePlacesTarifReduit = nbrePlacesTarifNormal = 0;</span>
+<span class="fc" id="L95">    }</span>
+
+    /**
+     * chiffre d'affaire produit par la salle
+     *
+     * @return la montant du chiffre d'affaire
+     */
+    public double chiffreAffaires() {
+<span class="fc" id="L103">        return prixUnit * nbrePlacesTarifNormal + TAUX_REDUCTION * prixUnit * nbrePlacesTarifReduit;</span>
+    }
+
+    /**
+     * taux de remplissage de la salle (exprimé en pourcentage)
+     *
+     * @return le taux de remplissage
+     */
+    public double tauxRemplissage() {
+<span class="fc" id="L112">        return (nbrePlacesTarifNormal + nbrePlacesTarifReduit) * 100.0 / nbrePlaces;</span>
+    }
+
+    /**
+     * renvoie sous forme de chaine de caractères l'information associèe à la
+     * salle.
+     *
+     * @return la chaine de caractères regroupant les valeurs des différents
+     * attributs de la salle.
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L124">        return &quot;------------------------------------------\n&quot;</span>
+                + &quot;Film joué : &quot; + titreFilm + &quot;\n&quot;
+                + &quot;Nombre de places non numérotées : &quot; + nbrePlaces + &quot;\n&quot;
+                + &quot;Prix de la place &quot; + prixUnit + &quot;\n&quot;
+                + nbrePlacesTarifNormal + &quot; places vendues à tarif normal\n&quot;
+                + nbrePlacesTarifReduit + &quot; places vendues à tarif réduit\n&quot;
+<span class="fc" id="L130">                + &quot;taux de remplissage &quot; + tauxRemplissage() + &quot;\n&quot;;</span>
+    }
+
+    /**
+     * @return retourne le prix unitaire (sans reduction) d'une place de la salle
+     */
+    public double getPrixUnit() {
+<span class="fc" id="L137">        return prixUnit;</span>
+    }
+
+    /**
+     * change le prix unitaire des places dans la salle
+     * @param prixUnit 
+     */
+    public void setPrixUnit(double prixUnit) {
+<span class="fc" id="L145">        this.prixUnit = prixUnit;</span>
+<span class="fc" id="L146">    }</span>
+
+    public double getPrixReduit() {
+<span class="fc" id="L149">        return TAUX_REDUCTION * prixUnit;</span>
+    }
+    /**
+     * @return nombre de places vendues à tarif normal
+     */
+    public int getNbrePlacesTarifNormal() {
+<span class="fc" id="L155">        return nbrePlacesTarifNormal;</span>
+    }
+
+    /**
+     * @return nombre de places vendues à tarif réduit
+     */
+    public int getNbrePlacesTarifReduit() {
+<span class="fc" id="L162">        return nbrePlacesTarifReduit;</span>
+    }
+
+    /**
+     * @return titre du film joué dans la salle
+     */
+    public String getTitreFilm() {
+<span class="fc" id="L169">        return titreFilm;</span>
+    }
+
+    /**
+     * change le titre du film joué dans la salle
+     * @param titreFilm 
+     */
+    public void setTitreFilm(String titreFilm) {
+<span class="fc" id="L177">        this.titreFilm = titreFilm;</span>
+<span class="fc" id="L178">    }</span>
+
+  
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
