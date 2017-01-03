@@ -13,9 +13,9 @@ import java.awt.Graphics;
  */
 public class Chenille {
 
-    private Anneau[] corps;
-    private Tete tete;
-    private Dessin dess;
+    protected Anneau[] corps;
+    protected Tete tete;
+    protected Dessin dess;
 
     public Chenille(int nbA, int r, Dessin d) {
         super();
