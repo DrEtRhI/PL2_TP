@@ -5,10 +5,12 @@
  */
 package ufrim2ag.m2pcci.pl2.chenille;
 
+import java.awt.Graphics;
+
 /**
  *
- * @author laura
+ * @author thierrye
  */
-public interface FormeAnime extends FormeDessine{
-    public void deplacer();
+public interface FormeDessine {
+    public void dessiner(Graphics g);
 }

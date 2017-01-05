@@ -7,8 +7,8 @@ package ufrim2ag.m2pcci.pl2.chenille;
 
 /**
  *
- * @author laura
+ * @author thierrye
  */
-public interface FormeAnime extends FormeDessine{
-    public void deplacer();
+public class FormeCirculaireAnime {
+    
 }

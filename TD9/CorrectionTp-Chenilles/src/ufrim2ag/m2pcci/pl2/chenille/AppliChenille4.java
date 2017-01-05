@@ -9,9 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 /**
- * Ouvre une fenêtre et affiche plusieurs chenilles de différents type (Star War,
- * couleur, une chenille de Noel), initialement toutes positionnées au centre de la
- * fenêtre et qui ensuite se déplacent de manière aléatoire.
+ * Ouvre une fenêtre et affiche plusieurs chenilles de différents type (Star
+ * War, couleur, une chenille de Noel), initialement toutes positionnées au
+ * centre de la fenêtre et qui ensuite se déplacent de manière aléatoire.
  *
  * Le nombre de chenille starwar, couleur et la vitesse d'animation (temps de
  * pause entre deux réaffichage) peuvent être contrôlés en les passant comme
@@ -33,11 +33,16 @@ public class AppliChenille4 {
      * nombre de chenilles Star War par defaut
      */
     public static final int NBCH_COUL = 5;
-    
+
     /**
      * nombre de visages ronds par défaut
      */
     public static final int NBVISAGE = 3;
+
+    /**
+     * nombre de visages ronds par défaut
+     */
+    public static final int NBETOILEFIXE = 6;
 
     public static String[] tetesFileNames = {
         "images/darthVador.png",
@@ -113,14 +118,14 @@ public class AppliChenille4 {
                     d, 10, 15);
             d.ajouterObjet(c[nbChenillesStarWar + i]);
         }
-        
+
         //Ajout des visages ronds
-        for (int i = 0; i < nbVisages; i++){
-            int largeur = 50 +i * 5;
+        for (int i = 0; i < nbVisages; i++) {
+            int largeur = 50 + i * 5;
             int hauteur = largeur;
-            v[i] = new VisageRond(d, 
-                    (int)((laFenetre.getWidth() / 2) * Math.random()), 
-                    (int)((laFenetre.getHeight()/ 2) * Math.random()),
+            v[i] = new VisageRond(d,
+                    (int) ((laFenetre.getWidth() / 2) * Math.random()),
+                    (int) ((laFenetre.getHeight() / 2) * Math.random()),
                     largeur, hauteur);
             d.ajouterObjet(v[i]);
         }
@@ -129,6 +134,36 @@ public class AppliChenille4 {
         Chenille cNoel = new ChenilleImage(d, 0, ImageIO.read(new File("images/chenilleNoel.png")));
         d.ajouterObjet(cNoel);
 
+        // Deux étoiles fixe
+        FormeAnime[] etoile = new FormeAnime[NBETOILEFIXE];
+
+        for (int i = 0; i < NBETOILEFIXE; i++) {
+            int nbSommets = (int) Math.max(3, (Math.random() * 10));
+            int rayon = (int) Math.max((Math.random() * 200), 40);
+            float epaisseurTrait = Math.max(5.0f, (float) (Math.random() * 20));
+                    int rRempli = (int) (Math.random() * 255);
+                    int vRempli = (int) (Math.random() * 255);
+                    int bRempli = (int) (Math.random() * 255);
+                    Color remplissage = new Color(rRempli, vRempli, bRempli);
+                    int rTrait = (int) (Math.random() * 255);
+                    int vTrait = (int) (Math.random() * 255);
+                    int bTrait = (int) (Math.random() * 255);
+                    Color trait = new Color(rTrait, vTrait, bTrait);
+            if (i < 3) {
+                if (i % 2 == 0) {
+                    etoile[i] = new Etoile(d, (int) (laFenetre.getWidth() * Math.random()),
+                            (int) (laFenetre.getHeight() * Math.random()), 50);
+                } else {
+                    etoile[i] = new Etoile(d, (int) (laFenetre.getWidth() * Math.random()),
+                            (int) (laFenetre.getHeight() * Math.random()), rayon, trait, remplissage, epaisseurTrait);
+                }
+            } else {
+                etoile[i] = new Polygone(d, (int) (laFenetre.getWidth() * Math.random()),
+                        (int) (laFenetre.getHeight() * Math.random()), rayon, nbSommets, trait, remplissage, epaisseurTrait);
+            }
+            d.ajouterObjet(etoile[i]);
+        }
+        
         // la boucle d'animation
         while (true) {
 
@@ -136,8 +171,8 @@ public class AppliChenille4 {
             for (FormeAnime ch : c) {
                 ch.deplacer();
             }
-            
-            for (FormeAnime vi : v){
+
+            for (FormeAnime vi : v) {
                 vi.deplacer();
             }
             cNoel.deplacer();
