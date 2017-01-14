@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package ufrim2ag.m2pcci.pl2.formesanimees.formes;
-import ufrim2ag.m2pcci.pl2.formesanimees.animation.IAnimable;
 import ufrim2ag.m2pcci.pl2.formesanimees.dessin.Dessin;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  * Cette classe permet de modéliser un visage de forme ovale.
@@ -38,7 +38,7 @@ import java.awt.Graphics;
  * @version dernière modification 07/01/2016
  *
  */
-public class VisageRond implements IAnimable{
+public class VisageRond implements IForme{
 
     // ---------------------------------------------------------
     // Les constantes de la classe VisageRond
@@ -111,6 +111,8 @@ public class VisageRond implements IAnimable{
      * impassible, si false le visage est souriant.
      */
     private boolean impassible = true;
+    
+    Rectangle rect;
 
     // ---------------------------------------------------------
     // Les constructeurs de la classe VisageRond
@@ -125,6 +127,7 @@ public class VisageRond implements IAnimable{
      */
     public VisageRond(Dessin d) {
         this(d, d.getLargeur() / 2, d.getHauteur() / 2, LARGEUR_DEFAUT, HAUTEUR_DEFAUT);
+        this.rect = new Rectangle (d.getLargeur() / 2, d.getHauteur() / 2, LARGEUR_DEFAUT, HAUTEUR_DEFAUT);
     }
 
     /**
@@ -139,6 +142,7 @@ public class VisageRond implements IAnimable{
      */
     public VisageRond(Dessin d, int xg, int yg) {
         this(d, xg, yg, LARGEUR_DEFAUT, HAUTEUR_DEFAUT);
+        this.rect = new Rectangle(xg, yg, LARGEUR_DEFAUT, HAUTEUR_DEFAUT);
 
     }
 
@@ -165,6 +169,8 @@ public class VisageRond implements IAnimable{
         this.yhg = yg;
         this.largeur = Math.max(larg, LARGEUR_MIN);
         this.hauteur = Math.max(haut, HAUTEUR_MIN);
+        this.rect = new Rectangle(xg, yg, largeur, hauteur);
+        
     }
 
     /**
@@ -172,142 +178,142 @@ public class VisageRond implements IAnimable{
      *
      * @return valeur de dx, déplacement élémentaire horizontal.
      */
-    public int getDx() {
-        return dx;
-    }
-
-    /**
-     * Fixe déplacement élémentaire horizontal.
-     *
-     * @param v Valeur à affecter à dx, déplacement élémentaire horizontal.
-     */
-    public void setDx(int v) {
-        this.dx = v;
-    }
-
-    public int getDy() {
-        return dy;
-    }
-
-    public void setDy(int v) {
-        this.dy = v;
-    }
-
-    /**
-     * Inverse sens du déplacement horizontal.
-     */
-    public void inverserDx() {
-        dx = -dx;
-        this.changeExpression();
-    }
-
-    /**
-     * Inverse sens du déplacement vertical.
-     */
-    public void inverserDy() {
-        dy = -dy;
-        this.changeExpression();
-    }
-
-    /**
-     * Inverse sens des déplacements horizontal et vertical.
-     */
-    public void inverserDxEtDy() {
-        dx = -dx;
-        dy = -dy;
-        this.changeExpression();
-    }
-
-    /**
-     * change l'expression du visage. Si il était impassible, il devient
-     * souriant, si il était souriant il devient impassible.
-     */
-    public void changeExpression() {
-        impassible = !impassible;
-    }
-
-    /**
-     * Fait effectuer au visage un déplacement élementaire. La position du coin
-     * supérieur gauche du visage est modifiée en lui ajoutant le déplacement
-     * élémentaire défini par dx et dy.
-     */
-    public void deplacerSansRebond() {
-        xhg += dx;
-        yhg += dy;
-    }
-
-    /**
-     * Fait effectuer au visage un déplacement élementaire. La position du coin
-     * supérieur gauche du visage est modifiée en lui ajoutant le déplacement
-     * élémentaire défini par dx et dy. Si le visage dépasse de l'un des bords
-     * de la zone de dessin il inverse sa direction de déplacement.
-     */
-    @Override
-    public void deplacer() {
-        if (bordGaucheAtteint() || bordDroitAtteint()) {
-            inverserDx();
-        }
-        if (bordHautAtteint() || bordBasAtteint()) {
-            inverserDy();
-        }
-        deplacerSansRebond();
-    }
-
-    /**
-     * Evalue si le visage atteint le bord gauche de la zône de dessin.
-     *
-     * @return <code>true</code> si le rectangle englobant le visage intersecte
-     * le coté gauche de la zône de dessin, <code>
-     *         false</code> sinon.
-     */
-    public boolean bordGaucheAtteint() {
-        return (xhg < 0);
-    }
-
-    /**
-     * Evalue si le visage atteint le bord droit de la zône de dessin.
-     *
-     * @return <code>true</code> si le rectangle englobant le visage intersecte
-     * le coté droit de la zône de dessin, <code>
-     *         false</code> sinon.
-     */
-    public boolean bordDroitAtteint() {
-        return ((xhg + largeur) > d.getLargeur());
-    }
-
-    /**
-     * Evalue si le visage atteint le bord haut de la zône de dessin.
-     *
-     * @return <code>true</code> si le rectangle englobant le visage intersecte
-     * le coté haut de la zône de dessin, <code>
-     *         false</code> sinon.
-     */
-    public boolean bordHautAtteint() {
-        return (yhg < 0);
-    }
-
-    /**
-     * Evalue si le visage atteint le bord bas de la zône de dessin.
-     *
-     * @return <code>true</code> si le rectangle englobant le visage intersecte
-     * le coté bas de la zône de dessin, <code>
-     *         false</code> sinon.
-     */
-    public boolean bordBasAtteint() {
-        return ((yhg + hauteur) >= d.getHauteur());
-    }
-
-    /**
-     * Evalue si le visage atteint l'un des bords de la zône de dessin.
-     *
-     * @return <code>true</code> si le rectangle englobant le visage intersecte
-     * l'un des cotés de la zône de dessin, <code>
-     *         false</code> sinon.
-     */
-    public boolean bordAtteint() {
-        return bordDroitAtteint() || bordGaucheAtteint() || bordHautAtteint()
-                || bordBasAtteint();
-    }
+//    public int getDx() {
+//        return dx;
+//    }
+//
+//    /**
+//     * Fixe déplacement élémentaire horizontal.
+//     *
+//     * @param v Valeur à affecter à dx, déplacement élémentaire horizontal.
+//     */
+//    public void setDx(int v) {
+//        this.dx = v;
+//    }
+//
+//    public int getDy() {
+//        return dy;
+//    }
+//
+//    public void setDy(int v) {
+//        this.dy = v;
+//    }
+//
+//    /**
+//     * Inverse sens du déplacement horizontal.
+//     */
+//    public void inverserDx() {
+//        dx = -dx;
+//        this.changeExpression();
+//    }
+//
+//    /**
+//     * Inverse sens du déplacement vertical.
+//     */
+//    public void inverserDy() {
+//        dy = -dy;
+//        this.changeExpression();
+//    }
+//
+//    /**
+//     * Inverse sens des déplacements horizontal et vertical.
+//     */
+//    public void inverserDxEtDy() {
+//        dx = -dx;
+//        dy = -dy;
+//        this.changeExpression();
+//    }
+//
+//    /**
+//     * change l'expression du visage. Si il était impassible, il devient
+//     * souriant, si il était souriant il devient impassible.
+//     */
+//    public void changeExpression() {
+//        impassible = !impassible;
+//    }
+//
+//    /**
+//     * Fait effectuer au visage un déplacement élementaire. La position du coin
+//     * supérieur gauche du visage est modifiée en lui ajoutant le déplacement
+//     * élémentaire défini par dx et dy.
+//     */
+//    public void deplacerSansRebond() {
+//        xhg += dx;
+//        yhg += dy;
+//    }
+//
+//    /**
+//     * Fait effectuer au visage un déplacement élementaire. La position du coin
+//     * supérieur gauche du visage est modifiée en lui ajoutant le déplacement
+//     * élémentaire défini par dx et dy. Si le visage dépasse de l'un des bords
+//     * de la zone de dessin il inverse sa direction de déplacement.
+//     */
+////    @Override
+////    public void deplacer() {
+////        if (bordGaucheAtteint() || bordDroitAtteint()) {
+////            inverserDx();
+////        }
+////        if (bordHautAtteint() || bordBasAtteint()) {
+////            inverserDy();
+////        }
+////        deplacerSansRebond();
+////    }
+//
+//    /**
+//     * Evalue si le visage atteint le bord gauche de la zône de dessin.
+//     *
+//     * @return <code>true</code> si le rectangle englobant le visage intersecte
+//     * le coté gauche de la zône de dessin, <code>
+//     *         false</code> sinon.
+//     */
+//    public boolean bordGaucheAtteint() {
+//        return (xhg < 0);
+//    }
+//
+//    /**
+//     * Evalue si le visage atteint le bord droit de la zône de dessin.
+//     *
+//     * @return <code>true</code> si le rectangle englobant le visage intersecte
+//     * le coté droit de la zône de dessin, <code>
+//     *         false</code> sinon.
+//     */
+//    public boolean bordDroitAtteint() {
+//        return ((xhg + largeur) > d.getLargeur());
+//    }
+//
+//    /**
+//     * Evalue si le visage atteint le bord haut de la zône de dessin.
+//     *
+//     * @return <code>true</code> si le rectangle englobant le visage intersecte
+//     * le coté haut de la zône de dessin, <code>
+//     *         false</code> sinon.
+//     */
+//    public boolean bordHautAtteint() {
+//        return (yhg < 0);
+//    }
+//
+//    /**
+//     * Evalue si le visage atteint le bord bas de la zône de dessin.
+//     *
+//     * @return <code>true</code> si le rectangle englobant le visage intersecte
+//     * le coté bas de la zône de dessin, <code>
+//     *         false</code> sinon.
+//     */
+//    public boolean bordBasAtteint() {
+//        return ((yhg + hauteur) >= d.getHauteur());
+//    }
+//
+//    /**
+//     * Evalue si le visage atteint l'un des bords de la zône de dessin.
+//     *
+//     * @return <code>true</code> si le rectangle englobant le visage intersecte
+//     * l'un des cotés de la zône de dessin, <code>
+//     *         false</code> sinon.
+//     */
+//    public boolean bordAtteint() {
+//        return bordDroitAtteint() || bordGaucheAtteint() || bordHautAtteint()
+//                || bordBasAtteint();
+//    }
 
     /**
      * affiche le visage.
@@ -340,6 +346,28 @@ public class VisageRond implements IAnimable{
         g.drawOval(xhg + 3 * largeurOeil, yhg + hauteurOeil, largeurOeil,
                 hauteurOeil);
 
+    }
+
+    @Override
+    public int getX() {
+        return xhg + largeur /2;
+    }
+
+    @Override
+    public int getY() {
+        return yhg + hauteur / 2;
+    }
+
+    @Override
+    public void placerA(int x, int y) {
+        this.xhg = x;
+        this.yhg = y;
+        this.rect.translate(x - this.xhg, y - this.yhg);
+    }
+
+    @Override
+    public Rectangle getRectEnglobant() {
+        return rect = new Rectangle(xhg, yhg, largeur, hauteur);
     }
 
 } // VisageRond

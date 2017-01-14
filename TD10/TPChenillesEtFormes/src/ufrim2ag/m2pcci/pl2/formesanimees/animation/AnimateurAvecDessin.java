@@ -34,22 +34,22 @@ public abstract class AnimateurAvecDessin implements IAnimateur{
     
     protected boolean sortAGauche(IForme f){
         Rectangle rect = f.getRectEnglobant();
-        return rect.getX() < 0;
+        return (f.getX() - (rect.getWidth() / 2)) < 0;
     }
     
     protected boolean sortADroite(IForme f){
         Rectangle rect = f.getRectEnglobant();
-        return rect.getX() > this.d.getLargeur();
+        return (f.getX() + (rect.getWidth() / 2)) > this.d.getWidth();
     }
     
     protected boolean sortEnBas(IForme f){
         Rectangle rect = f.getRectEnglobant();
-        return rect.getY() > this.d.getHauteur();
+        return (f.getY() + (rect.getHeight() / 2))> this.d.getHeight();
     }
     
     protected boolean sortEnHaut(IForme f){
         Rectangle rect = f.getRectEnglobant();
-        return rect.getY() < 0;
+        return (f.getY() - (rect.getHeight()/ 2)) < 0;
     }
     
 }

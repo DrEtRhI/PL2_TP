@@ -24,11 +24,11 @@ import ufrim2ag.m2pcci.pl2.formesanimees.formes.IForme;
  */
 public class AnimateurCercle implements IAnimateur {
 
-    private int rayon;
-    private int xc;
-    private int yc;
-    private double angle;
-    private double deltaAngle;
+    private final int rayon; // rayon de rotation
+    private final int xc; // abscisse du centre de rotation
+    private final int yc; // ordonnée du centre de rotation
+    private double angle; // angle de départ
+    private final double deltaAngle; // angle entre deux déplacement
 
     public AnimateurCercle(int xc, int yc, int r, double angle, double deltaAngle) {
 

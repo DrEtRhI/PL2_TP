@@ -25,10 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import ufrim2ag.m2pcci.pl2.formesanimees.animation.AnimateurCercle;
 import ufrim2ag.m2pcci.pl2.formesanimees.animation.AnimateurRebond;
-import ufrim2ag.m2pcci.pl2.formesanimees.chenille.ChenilleCouleur;
-import ufrim2ag.m2pcci.pl2.formesanimees.chenille.ChenilleImage;
 import ufrim2ag.m2pcci.pl2.formesanimees.dessin.Dessin;
-import ufrim2ag.m2pcci.pl2.formesanimees.formes.Cercle;
 import ufrim2ag.m2pcci.pl2.formesanimees.formes.Etoile;
 import ufrim2ag.m2pcci.pl2.formesanimees.formes.FormeAnimee;
 import ufrim2ag.m2pcci.pl2.formesanimees.formes.PolygoneRegulier;
@@ -155,10 +152,16 @@ public class AppliChenille4 {
 //        d.ajouterObjet(new Cercle(1000, 500, 50, 8.5f, Color.orange, Color.magenta));
         
         // ajout d'un polygone avec un déplacement en cercle
-        d.ajouterObjet(new FormeAnimee(new PolygoneRegulier(15, 500, 500, 45, 20f, Color.blue, Color.lightGray), new AnimateurCercle(500, 500, 150, 180, 15)));
+        d.ajouterObjet(new FormeAnimee(new PolygoneRegulier(9, 500, 500, 45, 20f, Color.blue, Color.lightGray), new AnimateurCercle(500, 500, 150, 180, 15)));
         
         // ajout d'une étoile qui rebondi sur les bords
         d.ajouterObjet(new FormeAnimee(new Etoile(200, 200, 30, 15f, Color.green, Color.red), new AnimateurRebond(d, 10, 20)));
+        
+        // ajout visabe avec déplacement circulaire
+        d.ajouterObjet(new FormeAnimee(new VisageRond(d, 0, 0, 80, 80), new AnimateurCercle(700, 50, 80, 0, 10)));
+        // ajout visabe avec déplacement rebond
+        d.ajouterObjet(new FormeAnimee(new VisageRond(d, 0, 0, 80, 80), new AnimateurRebond(d, 12, 12)));
+        
         
         // la boucle d'animation
         while (true) {
