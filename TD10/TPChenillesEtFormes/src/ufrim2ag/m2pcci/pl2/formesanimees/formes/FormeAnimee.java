@@ -37,22 +37,22 @@ public class FormeAnimee implements IFormeAnimee {
 
     @Override
     public int getX() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.forme.getX();
     }
 
     @Override
     public int getY() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.forme.getY();
     }
 
     @Override
     public void placerA(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.forme.placerA(x, y);
     }
 
     @Override
     public Rectangle getRectEnglobant() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.forme.getRectEnglobant();
     }
 
     @Override

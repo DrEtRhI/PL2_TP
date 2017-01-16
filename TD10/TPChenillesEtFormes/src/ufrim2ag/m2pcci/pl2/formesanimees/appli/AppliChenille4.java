@@ -160,7 +160,7 @@ public class AppliChenille4 {
         // ajout visabe avec déplacement circulaire
         d.ajouterObjet(new FormeAnimee(new VisageRond(d, 0, 0, 80, 80), new AnimateurCercle(700, 50, 80, 0, 10)));
         // ajout visabe avec déplacement rebond
-        d.ajouterObjet(new FormeAnimee(new VisageRond(d, 0, 0, 80, 80), new AnimateurRebond(d, 12, 12)));
+        d.ajouterObjet(new FormeAnimee(new VisageRond(d, 0, 0, 80, 80), new AnimateurRebond(d, 10, 20)));
         
         
         // la boucle d'animation

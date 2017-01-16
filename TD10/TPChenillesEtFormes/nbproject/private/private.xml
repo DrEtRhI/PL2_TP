@@ -3,21 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/dessin/Dessin.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/formes/Forme.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/formes/FormeCirculaireReguliere.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/animation/IFormeAnimee.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/animation/AnimateurAvecDessin.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/animation/AnimateurRebond.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/formes/IForme.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/formes/VisageRond.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/formes/Cercle.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/formes/FormeCirculaire.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/animation/IAnimateur.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/formes/FormeAnimee.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/animation/AnimateurCercle.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/appli/AppliChenille4.java</file>
-            <file>file:/D:/Eric/Documents/Cours%20CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/formes/Etoile.java</file>
+            <file>file:/home/t/thierrye/CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/formes/VisageRond.java</file>
+            <file>file:/home/t/thierrye/CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/formes/Forme.java</file>
+            <file>file:/home/t/thierrye/CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/formes/FormeAnimee.java</file>
+            <file>file:/home/t/thierrye/CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/animation/AnimateurRebond.java</file>
+            <file>file:/home/t/thierrye/CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/appli/AppliChenille4.java</file>
+            <file>file:/home/t/thierrye/CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/dessin/Dessin.java</file>
+            <file>file:/home/t/thierrye/CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/formes/Etoile.java</file>
+            <file>file:/home/t/thierrye/CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/animation/AnimateurAvecDessin.java</file>
+            <file>file:/home/t/thierrye/CCI/PL2/PL2_TP/TD10/TPChenillesEtFormes/src/ufrim2ag/m2pcci/pl2/formesanimees/animation/AnimateurCercle.java</file>
         </group>
     </open-files>
 </project-private>
