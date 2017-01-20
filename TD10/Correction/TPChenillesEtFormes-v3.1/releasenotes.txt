@@ -1,0 +1,30 @@
+v1.0
+ajout interface IDessinable on anime simltanément des Chenilles et VisagesRonds
+
+v1.1
+affiche des étoiles fixes
+
+v1.1.1
+ajout épaisseur du trait pour contour étoile fixe
+
+v1.2 
+ajout support pour les polygones réguliers
+
+v1.3 
+ajout interface IAnimable et prise en charge de l'animation par la zone de dessin
+
+v1.3.1 
+refactoring avec methode abstraite creerContour dans constructeur FormeCirculaireReguliere
+
+v2.0 
+extension de la hiérarchie des formes et ajout des Animateurs circulaire et avec rebond
+les formes peuvent être animées.
+
+v2.1 
+Création d'un classe animateurCap pour les formes
+
+v3.0
+Refactoring de Chenille pour que la tête puisse être un forme
+
+v3.1
+Refactoring de Chenille pour pouvoir avoir n'importe quel type d'animateur
