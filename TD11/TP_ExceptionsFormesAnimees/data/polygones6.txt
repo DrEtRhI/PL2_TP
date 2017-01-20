@@ -1,0 +1,18 @@
+# un pentagone rouge
+A CERCLEA 80 300 300 0 15
+F POLYR 100 100 40 5 255 0 0
+# un octogone noir incorrect (il manque la composante bleue de la couleur)
+F POLYR 200 190 40 8 255 255 
+# un octogone vert
+F POLYR 200 190 40 8 0 255 0
+# une etoile jaune
+A CAPA 0 25
+F ETOILE 230 290 35 255 255 0
+# un hexagone bleu
+F POLYR 300 270 30 6 0 0 255
+# un octogone noir incorrect
+F POLYR 200 190 40 8.0 0 255 0
+# un disque cyan
+F DISQUE 100 400 65 0 255 255
+# une chenille
+C 20 5 
