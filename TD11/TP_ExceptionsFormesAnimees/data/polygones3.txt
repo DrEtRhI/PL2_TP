@@ -1,0 +1,10 @@
+# un pentagone rouge
+F POLYR 100 100 40 5 255 0 0
+# un octogone noir incorrect (il manque la composante bleue de la couleur)
+F POLYR 200 190 40 8 255 255 
+# un octogone vert
+F POLYR 200 190 40 8 0 255 0
+# un hexagone bleu
+F POLYR 300 270 30 6 0 0 255
+# un octogone noir incorrect
+F POLYR 200 190 40 8.0 0 255 0
