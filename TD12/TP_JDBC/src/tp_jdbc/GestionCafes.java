@@ -49,17 +49,20 @@ public class GestionCafes {
      * en une semaine et leur consommation pour cette semaine.
      *
      * @param conn
+     * @throws java.sql.SQLException
      */
-    public static void plusGrosConsommateurs(Connection conn) {
+    public static void plusGrosConsommateurs(Connection conn) throws SQLException {
 
-        try {
-            int i = 1;
-            System.out.println("Les plus gros consommateurs de cafés sont :");
-            Statement stmt = conn.createStatement();
-            String myQuery = "SELECT PROGRAMMEUR, PRENOM, NOM, NB_TASSES, NO_SEMAINE"
-                    + " FROM CONSOS_CAFE c JOIN PROGRAMMEURS p ON p.ID=c.PROGRAMMEUR"
-                    + " WHERE c.NB_TASSES = (SELECT MAX(NB_TASSES) FROM CONSOS_CAFE)";
-            ResultSet rs = stmt.executeQuery(myQuery);
+        int i = 1;
+        System.out.println("Les plus gros consommateurs de cafés sont :");
+        String myQuery = "SELECT PROGRAMMEUR, PRENOM, NOM, NB_TASSES, NO_SEMAINE"
+                + " FROM CONSOS_CAFE c JOIN PROGRAMMEURS p ON p.ID=c.PROGRAMMEUR"
+                + " WHERE c.NB_TASSES = (SELECT MAX(NB_TASSES) FROM CONSOS_CAFE)";
+        //Réalisation d'un try-with-ressources pour les objets Statement et ResultSet
+        //possible car ces classes implémentent l'interface AutoClosable
+        //l'exception SQLexception générée est trhows (sera gérée dans le main)
+        try (Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(myQuery)) {
 
             while (rs.next()) {
 
@@ -72,8 +75,6 @@ public class GestionCafes {
                         + ", " + noSemaine);
                 i++;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionCafes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -83,19 +84,22 @@ public class GestionCafes {
      * de tasses consommées cette semaine
      *
      * @param conn
+     * @throws java.sql.SQLException
      */
-    public static void consommationsPourUneSemaine(Connection conn) {
+    public static void consommationsPourUneSemaine(Connection conn) throws SQLException {
 
-        try {
-            int i = 1;
-            System.out.print("Numéro de la semaine : ");
-            int numeroDeSemaine = sc.nextInt();
-            Statement stmt = conn.createStatement();
-            String requete = "SELECT PROGRAMMEUR,  PRENOM, NOM, NB_TASSES FROM \n"
-                    + "       CONSOS_CAFE c JOIN PROGRAMMEURS p ON c.PROGRAMMEUR=p.ID \n"
-                    + "       WHERE c.NO_SEMAINE = " + numeroDeSemaine + "\n"
-                    + "       ORDER BY NB_TASSES DESC";
-            ResultSet rs = stmt.executeQuery(requete);
+        int i = 1;
+        System.out.print("Numéro de la semaine : ");
+        int numeroDeSemaine = sc.nextInt();
+        String requete = "SELECT PROGRAMMEUR,  PRENOM, NOM, NB_TASSES FROM \n"
+                + "       CONSOS_CAFE c JOIN PROGRAMMEURS p ON c.PROGRAMMEUR=p.ID \n"
+                + "       WHERE c.NO_SEMAINE = " + numeroDeSemaine + "\n"
+                + "       ORDER BY NB_TASSES DESC";
+        //Réalisation d'un try-with-ressources pour les objets Statement et ResultSet
+        //possible car ces classes implémentent l'interface AutoClosable
+        //l'exception SQLexception générée est trhows (sera gérée dans le main)
+        try (Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(requete)) {
 
             while (rs.next()) {
                 int id = rs.getInt("PROGRAMMEUR");
@@ -105,8 +109,6 @@ public class GestionCafes {
                 System.out.println("ROW" + i + " = " + id + ", " + prenom + ", " + nom + ", " + nbTasses);
                 i++;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionCafes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -115,18 +117,22 @@ public class GestionCafes {
      * consommées.
      *
      * @param conn
+     * @throws java.sql.SQLException
      */
-    public static void nbreTotalDeTasses(Connection conn) {
+    public static void nbreTotalDeTasses(Connection conn) throws SQLException {
 
-        try {
-            int i = 1;
-            System.out.print("Identifiant du programmeur : ");
-            int idProgrammeur = sc.nextInt();
-            Statement stmt = conn.createStatement();
-            String requete = "SELECT PRENOM, NOM, SUM(NB_TASSES) as TOT_TASSES FROM CONSOS_CAFE c "
-                    + "join PROGRAMMEURS p on p.ID = c.PROGRAMMEUR "
-                    + "WHERE PROGRAMMEUR=" + idProgrammeur + "Group by PRENOM, NOM";
-            ResultSet rs = stmt.executeQuery(requete);
+        int i = 1;
+        System.out.print("Identifiant du programmeur : ");
+        int idProgrammeur = sc.nextInt();
+        String requete = "SELECT PRENOM, NOM, SUM(NB_TASSES) as TOT_TASSES FROM CONSOS_CAFE c "
+                + "join PROGRAMMEURS p on p.ID = c.PROGRAMMEUR "
+                + "WHERE PROGRAMMEUR=" + idProgrammeur + "Group by PRENOM, NOM";
+
+        //Réalisation d'un try-with-ressources pour les objets Statement et ResultSet
+        //possible car ces classes implémentent l'interface AutoClosable
+        //l'exception SQLexception générée est trhows (sera gérée dans le main)
+        try (Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(requete)) {
             while (rs.next()) {
                 String prenom = rs.getString("PRENOM");
                 String nom = rs.getString("NOM");
@@ -134,8 +140,6 @@ public class GestionCafes {
                 System.out.println("ROW" + i + " = " + prenom + ", " + nom + ", " + nbTasses);
                 i++;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionCafes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -144,21 +148,22 @@ public class GestionCafes {
      * rentrer le nombre de tasses qu'il a consommées durant cette semaine.
      *
      * @param conn
+     * @throws java.sql.SQLException
      */
-    public static void sasirConsommations(Connection conn) {
+    public static void sasirConsommations(Connection conn) throws SQLException {
 
-        try {
-            System.out.print("Numéro de de la semaine : ");
-            int noSemaine = sc.nextInt();
-            System.out.println("ID du programmeur : ");
-            int idProgrammeur = sc.nextInt();
-            System.out.println("Nombre de tasses consommées : ");
-            int nbTasses = sc.nextInt();
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO CONSOS_CAFE (NO_SEMAINE, PROGRAMMEUR, NB_TASSES)\n"
-                    + "       VALUES(" + noSemaine + "," + idProgrammeur + "," + nbTasses + ")");
+        System.out.print("Numéro de de la semaine : ");
+        int noSemaine = sc.nextInt();
+        System.out.println("ID du programmeur : ");
+        int idProgrammeur = sc.nextInt();
+        System.out.println("Nombre de tasses consommées : ");
+        int nbTasses = sc.nextInt();
+        //Réalisation d'un try-with-ressources pour l'objet PreparedStatement
+        //possible car cette classe implémente l'interface AutoClosable
+        //l'exception SQLexception générée est trhows (sera gérée dans le main)
+        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO CONSOS_CAFE (NO_SEMAINE, PROGRAMMEUR, NB_TASSES)\n"
+                + "       VALUES(" + noSemaine + "," + idProgrammeur + "," + nbTasses + ")")) {
             ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionCafes.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -174,63 +179,65 @@ public class GestionCafes {
      * indique le nombre de lignes de la table qui ont été modifiées. <li> </ul>
      *
      * @param conn
+     * @throws java.sql.SQLException
      */
-    public static void requeteLibreEtMetaDonnees(Connection conn) {
+    public static void requeteLibreEtMetaDonnees(Connection conn) throws SQLException {
 
-        try {
-            boolean typeRequete;
-            System.out.print("Rentrez votre requête : ");
-            String cmd = sc.next() + sc.nextLine();
-            Statement stmt = conn.createStatement();
+        boolean typeRequete;
+        System.out.print("Rentrez votre requête : ");
+        String cmd = sc.next() + sc.nextLine();
+        //Réalisation d'un try-with-ressources pour les objets Statement et ResultSet
+        //possible car ces classes implémentent l'interface AutoClosable
+        //l'exception SQLexception générée est trhows (sera gérée dans le main)
+        try (Statement stmt = conn.createStatement()) {
             typeRequete = stmt.execute(cmd);
-            ResultSet rs = stmt.getResultSet();
-            if (typeRequete) {
-                
-                ResultSetMetaData rsmd = rs.getMetaData();
-                int nbColumn = rsmd.getColumnCount();
-                System.out.println("Le réslutat contient " + nbColumn + " colonne(s)");
-                String[] tabNameColumn = new String[nbColumn];
-                String[] tabTypeColumn = new String[nbColumn];
-                for (int i = 0; i <= nbColumn - 1; i++) {
-                    tabNameColumn[i] = rsmd.getColumnName(i + 1);
-                    tabTypeColumn[i] = rsmd.getColumnTypeName(i + 1);
-                }
-                for (int i = 0; i <= nbColumn - 1; i++) {
+            try (ResultSet rs = stmt.getResultSet()) {
+                if (typeRequete) {
 
-                    System.out.println("------------------------------------------------");
-                    System.out.println("Colonne : " + (i + 1));
-                    System.out.println("Nom : " + tabNameColumn[i] + ", Type : " + tabTypeColumn[i]);
-                    System.out.println("------------------------------------------------");
-                }
-
-                System.out.println("Résultats de la requête : ");
-                System.out.println("");
-                
-                while (rs.next()) {
-                    
-                    
-                    String[] attribut = new String[nbColumn];
-                    for (int j = 0; j <= nbColumn - 1; j++){
-                        attribut[j] = rs.getString(tabNameColumn[j]);
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    int nbColumn = rsmd.getColumnCount();
+                    System.out.println("Le réslutat contient " + nbColumn + " colonne(s)");
+                    String[] tabNameColumn = new String[nbColumn];
+                    String[] tabTypeColumn = new String[nbColumn];
+                    for (int i = 0; i <= nbColumn - 1; i++) {
+                        tabNameColumn[i] = rsmd.getColumnName(i + 1);
+                        tabTypeColumn[i] = rsmd.getColumnTypeName(i + 1);
                     }
-                    
-                    for (int j = 0; j <= nbColumn - 1; j++){
-                        if (j + 1 == nbColumn){
-                            System.out.println(" " + attribut[j]);
-                        }else{
-                            System.out.print(" " + attribut[j]);
+                    for (int i = 0; i <= nbColumn - 1; i++) {
+
+                        System.out.println("------------------------------------------------");
+                        System.out.println("Colonne : " + (i + 1));
+                        System.out.println("Nom : " + tabNameColumn[i] + ", Type : " + tabTypeColumn[i]);
+                        System.out.println("------------------------------------------------");
+                    }
+
+                    System.out.println("Résultats de la requête : ");
+                    System.out.println("");
+
+                    while (rs.next()) {
+
+                        String[] attribut = new String[nbColumn];
+                        for (int j = 0; j <= nbColumn - 1; j++) {
+                            attribut[j] = rs.getString(tabNameColumn[j]);
                         }
+
+                        for (int j = 0; j <= nbColumn - 1; j++) {
+                            if (j + 1 == nbColumn) {
+                                System.out.println(" " + attribut[j]);
+                            } else {
+                                System.out.print(" " + attribut[j]);
+                            }
+                        }
+
                     }
-                    
+
+                } else {
+                    int nbUpdatedRows = stmt.getUpdateCount();
+                    System.out.println("Nombre de lignes modifiées : " + nbUpdatedRows);
                 }
 
-            }else{
-                int nbUpdatedRows = stmt.getUpdateCount();
-                System.out.println("Nombre de lignes modifiées : " + nbUpdatedRows);
             }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionCafes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
