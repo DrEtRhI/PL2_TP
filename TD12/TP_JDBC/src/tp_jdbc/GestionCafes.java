@@ -5,13 +5,14 @@
  */
 package tp_jdbc;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.rmi.AccessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,9 +22,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.Properties;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Programme de démonstration de JDBC. Permet de se connecter à une BD Oracle et
@@ -340,6 +340,22 @@ public class GestionCafes {
         System.out.println("0 : Quitter l'application");
     }
 
+    public static String getLogin() throws FileNotFoundException, IOException {
+        Properties prop = new Properties();
+        String propertiesFileName = "../../../JDBC.properties";
+        BufferedInputStream input = new BufferedInputStream(new FileInputStream(propertiesFileName));
+        prop.load(input);
+        return prop.getProperty("login");
+    }
+    
+    public static String getPassword() throws FileNotFoundException, IOException {
+        Properties prop = new Properties();
+        String propertiesFileName = "../../../JDBC.properties";
+        BufferedInputStream input = new BufferedInputStream(new FileInputStream(propertiesFileName));
+        prop.load(input);
+        return prop.getProperty("password");
+    }
+
     public static void main(String[] args) {
 
         // TODO
@@ -351,59 +367,66 @@ public class GestionCafes {
             System.exit(0); //Si on peut pas charger le driver on quitte le système.
         }
         // et ouverture d'une connexion
-        try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag", "thierrye", "Egzrxvwc85")) {
-            System.out.println("Connexion réussie !");
-            boolean encore = true;
-            do {
-                affMenu();
-                try {
-                    System.out.print("votre choix : ");
-                    int rep = sc.nextInt();
+        try {
+            String username = getLogin();
+            String password = getPassword();
+            try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag", username, password)) {
+                System.out.println("Connexion réussie !");
+                boolean encore = true;
+                do {
+                    affMenu();
+                    try {
+                        System.out.print("votre choix : ");
+                        int rep = sc.nextInt();
 
-                    System.out.println("\n\n");
+                        System.out.println("\n\n");
 
-                    switch (rep) {
-                        case 0:
-                            System.out.print("voulez-vous vraimment quitter le programme O/N ?");
-                            encore = sc.next().toUpperCase().charAt(0) != 'O';
-                            break;
-                        case 1:
-                            plusGrosConsommateurs(conn);
-                            break;
-                        case 2:
-                            nbreTotalDeTasses(conn);
-                            break;
-                        case 3:
-                            consommationsPourUneSemaine(conn);
-                            break;
-                        case 4:
-                            sasirConsommations(conn);
-                            break;
-                        case 5:
-                            requeteLibreEtMetaDonnees(conn);
-                            break;
-                        case 6:
-                            insertionDonneesCSV(conn);
-                            break;
-                        case 7:
-                            sauvegardeDonneesCSV(conn);
-                            break;
-                        default:
-                            System.out.println("valeur erronée !");
-                    }  // end switch
+                        switch (rep) {
+                            case 0:
+                                System.out.print("voulez-vous vraimment quitter le programme O/N ?");
+                                encore = sc.next().toUpperCase().charAt(0) != 'O';
+                                break;
+                            case 1:
+                                plusGrosConsommateurs(conn);
+                                break;
+                            case 2:
+                                nbreTotalDeTasses(conn);
+                                break;
+                            case 3:
+                                consommationsPourUneSemaine(conn);
+                                break;
+                            case 4:
+                                sasirConsommations(conn);
+                                break;
+                            case 5:
+                                requeteLibreEtMetaDonnees(conn);
+                                break;
+                            case 6:
+                                insertionDonneesCSV(conn);
+                                break;
+                            case 7:
+                                sauvegardeDonneesCSV(conn);
+                                break;
+                            default:
+                                System.out.println("valeur erronée !");
+                        }  // end switch
 
-                } catch (InputMismatchException ex) {
-                    System.out.println("saisie incorrecte\nRecommencez !!");
-                    sc.nextLine();   // pour "vider" le scanner
-                }
-            } while (encore);
-        } catch (SQLException | IOException e) {
-            System.out.println(e.getMessage());
+                    } catch (InputMismatchException ex) {
+                        System.out.println("saisie incorrecte\nRecommencez !!");
+                        sc.nextLine();   // pour "vider" le scanner
+                    }
+                } while (encore);
+            } catch (SQLException | IOException e) {
+                System.out.println(e.getMessage());
+                System.out.println(e.getCause());
+                System.out.println(Arrays.toString(e.getStackTrace()));
+            }
+
+            // TODO
+            // Fermer la connexion à la BD
+        }catch (IOException e){
             System.out.println(e.getCause());
-            System.out.println(Arrays.toString(e.getStackTrace()));
+            System.out.println(e.getMessage());
         }
-
-        // TODO
-        // Fermer la connexion à la BD
     }
 }
