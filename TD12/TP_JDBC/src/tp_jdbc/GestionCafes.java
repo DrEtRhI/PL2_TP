@@ -6,8 +6,10 @@
 package tp_jdbc;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.AccessException;
 import java.sql.Connection;
@@ -17,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -246,26 +249,80 @@ public class GestionCafes {
     }
 
     public static void insertionDonneesCSV(Connection conn) throws FileNotFoundException, IOException, SQLException {
-        System.out.println("Indiquez le chemin absolu du fichier CSV à utiliser"
-                + " pour insérer des données dans la table");
-        String fileName = sc.next();
+        System.out.println("Indiquez le nom de la table dans laquelle vous désirez insérer des données (programmeurs ou consos) : ");
+        String fileName;
+        String table = sc.next();
+        if (table.equalsIgnoreCase("programmeurs")) {
+            fileName = "schema/progs.data";
+        } else {
+            fileName = "schema/consos.data";
+        }
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
         if (fileName.contains("progs")) {
             PreparedStatement pstmt = conn.prepareStatement("INSERT into PROGRAMMEURS Values (?,?,?,?)");
             String ligne = reader.readLine();
             while (ligne != null) {
                 String[] currentLine = ligne.split(",");
-                for (String word : currentLine) {
-                    
-                }
+                pstmt.setInt(1, Integer.parseInt(currentLine[0]));
+                pstmt.setString(2, currentLine[1]);
+                pstmt.setString(3, currentLine[2]);
+                pstmt.setInt(4, Integer.parseInt(currentLine[3]));
+                pstmt.addBatch();
+                ligne = reader.readLine();
             }
+            int[] countInsertion = pstmt.executeBatch();
+            System.out.println("Les données ont été insérées dans la table : PROGRAMMEURS");
         } else {
-
+            PreparedStatement pstmt = conn.prepareStatement("INSERT into CONSOS_CAFE Values (?,?,?)");
+            String ligne = reader.readLine();
+            while (ligne != null) {
+                String[] currentLine = ligne.split(",");
+                for (int i = 0; i < currentLine.length; i++) {
+                    pstmt.setInt(i + 1, Integer.parseInt(currentLine[i]));
+                }
+                pstmt.addBatch();
+                ligne = reader.readLine();
+            }
+            int[] countInsertion = pstmt.executeBatch();
+            System.out.println("Les données ont été insérées dans la table : CONSOS_CAFE");
         }
+
     }
 
-    public static void sauvegardeDonneesCSV(Connection conn) {
-
+    public static void sauvegardeDonneesCSV(Connection conn) throws IOException, SQLException {
+        System.out.println("Quelle table souhaitez-vous sauvergarder au format CSV (programmeurs ou consos) : ");
+        String tableName = sc.next();
+        System.out.println("Quel sera le nom du fichier de sauvegarde : ");
+        String saveName = sc.next();
+        saveName = "sauvegardeCSV/" + saveName;
+        if (tableName.equalsIgnoreCase("programmeurs")) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveName))) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM PROGRAMMEURS");
+                while (rs.next()) {
+                    int attr1 = rs.getInt("ID");
+                    String attr2 = rs.getString("NOM");
+                    String attr3 = rs.getString("PRENOM");
+                    int attr4 = rs.getInt("BUREAU");
+                    writer.write(attr1 + "," + attr2 + "," + attr3 + "," + attr4);
+                    writer.newLine();
+                }
+            }
+            System.out.println("la table PROGRAMMEURS a été sauvergardée sous le nom " + saveName);
+        } else {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveName))) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM CONSOS_CAFE");
+                while (rs.next()) {
+                    int attr1 = rs.getInt("NO_SEMAINE");
+                    int attr2 = rs.getInt("PROGRAMMEUR");
+                    int attr3 = rs.getInt("NB_TASSES");
+                    writer.write(attr1 + "," + attr2 + "," + attr3);
+                    writer.newLine();
+                }
+            }
+            System.out.println("la table CONSOS_CAFE a été sauvergardée sous le nom " + saveName);
+        }
     }
 
     /**
@@ -294,7 +351,7 @@ public class GestionCafes {
             System.exit(0); //Si on peut pas charger le driver on quitte le système.
         }
         // et ouverture d'une connexion
-        try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag", username, password)) {
+        try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag", "thierrye", "Egzrxvwc85")) {
             System.out.println("Connexion réussie !");
             boolean encore = true;
             do {
@@ -340,8 +397,10 @@ public class GestionCafes {
                     sc.nextLine();   // pour "vider" le scanner
                 }
             } while (encore);
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             System.out.println(e.getMessage());
+            System.out.println(e.getCause());
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
 
         // TODO
