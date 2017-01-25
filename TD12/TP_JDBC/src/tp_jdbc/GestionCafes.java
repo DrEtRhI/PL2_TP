@@ -5,6 +5,10 @@
  */
 package tp_jdbc;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.rmi.AccessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -241,6 +245,29 @@ public class GestionCafes {
         }
     }
 
+    public static void insertionDonneesCSV(Connection conn) throws FileNotFoundException, IOException, SQLException {
+        System.out.println("Indiquez le chemin absolu du fichier CSV à utiliser"
+                + " pour insérer des données dans la table");
+        String fileName = sc.next();
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        if (fileName.contains("progs")) {
+            PreparedStatement pstmt = conn.prepareStatement("INSERT into PROGRAMMEURS Values (?,?,?,?)");
+            String ligne = reader.readLine();
+            while (ligne != null) {
+                String[] currentLine = ligne.split(",");
+                for (String word : currentLine) {
+                    
+                }
+            }
+        } else {
+
+        }
+    }
+
+    public static void sauvegardeDonneesCSV(Connection conn) {
+
+    }
+
     /**
      * affiche le menu présentant les différentes opérations possibles
      */
@@ -251,6 +278,8 @@ public class GestionCafes {
         System.out.println("3 : Consommations pour une semaine donnée");
         System.out.println("4 : Sasie des consommations pour une semaine");
         System.out.println("5 : Requête Libre ");
+        System.out.println("6 : Insertion de données depuis un fichier (CSV)");
+        System.out.println("7 : Sauvegarde de données dans un fichier (CSV)");
         System.out.println("0 : Quitter l'application");
     }
 
@@ -295,6 +324,12 @@ public class GestionCafes {
                             break;
                         case 5:
                             requeteLibreEtMetaDonnees(conn);
+                            break;
+                        case 6:
+                            insertionDonneesCSV(conn);
+                            break;
+                        case 7:
+                            sauvegardeDonneesCSV(conn);
                             break;
                         default:
                             System.out.println("valeur erronée !");
