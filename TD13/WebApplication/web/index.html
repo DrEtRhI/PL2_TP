@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Formulaire intéractif</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Première appli web avec formulaire</h1>
+        <form name="formulaire" action="HelloCtrlServlet">
+            <p>Votre nom : 
+                <input type="text" name="nom" value="" />
+            </p>
+            <p>Nombre de répétitions : 
+                <input type="text" name="nb" value="" />
+            </p>
+            <p>
+                Text : <input type="radio" name="output" value="texte" checked="checked" />
+                Image : <input type="radio" name="output" value="image" />
+            </p>
+            <p>
+                <input type="submit" value="Soumettre" />
+            </p>
+        </form>
+    </body>
+</html>
