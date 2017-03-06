@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/DemoSelect">
+  <Resource auth="Container" 
+            driverClassName="oracle.jdbc.OracleDriver" 
+            maxActive="10" 
+            maxIdle="3"
+            maxWait="10000" 
+            name="jdbc/UFRIMA" 
+            password="XXXXX" 
+            type="javax.sql.DataSource" 
+            url="jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:ufrima" 
+            username="YYYYY"/>
+</Context>

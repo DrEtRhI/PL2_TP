@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Date Demo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <h1>Nouveau spectacle</h1>
+            <form action="datetimeServlet">
+                <p>Nom: <input type="text" name="nom" size="30" placeholder="nom du spectacle"></p>
+                <p>Heure du spectacle: <input type="datetime-local" name="datetime"></p>
+                <input type="submit" value="Send">
+            </form>
+            <p><strong>Note:</strong> type="datetime-local" n'est pas supporté par Firefox ou
+                Internet Explorer 12-.</p>
+        </div>
+    </body>
+</html>

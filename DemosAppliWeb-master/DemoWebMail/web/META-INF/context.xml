@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/DemoWebMail">
+    <!-- 
+       cela serait meiux de procéder avec une ressource gérée par le serveur
+       mais cela impose d'avoir le droit de copier la fichier javax.mail.jar dans
+       le lib du serveru tomcat. Mais sur les machines de l'ufr les étudiants n'ont
+       pas les droits adminsitrateur.
+       et ecrire ce fichier dans le répertoire nblib, de .netbeans ne suffit pas.
+       
+    -->
+    <!--
+    <Resource 
+        name="mail/DEMO"
+        type="javax.mail.Session"
+        auth="Container" 
+        mail.smtp.auth="true"
+        mail.smtp.starttls.enable="true"
+        mail.smtp.host="smtps.ujf-grenoble.fr"
+        mail.smtp.port="587"
+        mail.smtp.user="VotreLoginUGA"
+        mail.smtp.password="VotreMotDePasseUGA"
+        password="VotreMotDePasseUGA"
+    />
+    -->
+</Context>
