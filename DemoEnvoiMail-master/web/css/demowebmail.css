@@ -1,0 +1,77 @@
+/* 
+    Created on : 17 mars 2015, 08:57:04
+    Author     : Philippe Genoud (UJF - LIG STeamer)
+
+    Styles utilisés pour le formulaire de demonstration d'envoie d'un email
+    inspirés de l'article :
+    https://developer.mozilla.org/fr/docs/Web/Guide/HTML/Formulaires/Mon_premier_formulaire_HTML
+*/
+body {
+    font: 1em sans-serif;
+    margin: 0 auto;
+    width: 500px;
+}
+form {
+    /* Pour le centrer dans la page */
+    margin: 0 auto;
+    width: 450px;
+    /* Pour voir les limites du formulaire */
+    padding: 1em 1em 0.1em 1em ;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    background-color: #cccccc;
+}
+fieldset {
+    border-radius: 1em;
+}
+form div + div {
+    margin-top: 1em;
+}
+label {
+    /* Afin de s'assurer que toutes les étiquettes aient la même dimension et soient alignées correctement */
+    display: inline-block;
+    width: 140px;
+    text-align: left;
+}
+
+input, button {
+    /* Afin de s'assurer que tous les champs textuels et boutons utilisent la même police */
+    font: 1em sans-serif;
+}
+
+input, select{
+
+    /* Pour donner la même dimension à tous les champs textuels */
+    width: 250px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    /* Pour harmoniser l'apparence des bordures des champs textuels */
+    border: 1px solid #999;
+}
+input:focus {
+    /* Afin de rehausser les éléments actifs */
+    border-color: #FA0;
+}
+
+.button {
+    text-align: center;
+    padding-top: 20px;
+}
+
+h1, #message {
+        text-align: center;
+}
+
+.messageOK {
+    color: green;
+}
+
+.messageErreur {
+    color: red;
+}
+
+#waitMessage img {
+    float: left;
+    margin-right: 20px;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="scripts/javamailDemo.js"></script>
+        <title>Demo mail</title>
+        <link rel="stylesheet" type="text/css" href="css/demowebmail.css">
+    </head>
+    <body>
+        <h1>Test envoi de mail</h1>
+        <form id="achatForm" action="sendTicket" method="POST">
+            <fieldset>
+                <legend>Choix épreuve !</legend>
+                <div>
+                    <label for="epreuve">Epreuve: </label>
+                    <select name="epreuve" id="epreuve" required>
+                    </select>*
+                </div>
+                <div>
+                    <label for="dateEpreuve">Date: </label>
+                    <input type="text" name="dateEpreuve" id="dateEpreuve" value="" disabled/>
+                </div>
+                <div>
+                    <label for="quantité">Nombre de places: </label>
+                    <input type="number" name="nbTickets" min="1" max="5" id="nbTickets" value='1' required />
+                </div>
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend>Informations Client</legend>
+                <div>
+                    <label for="titulaireBillet">Titulaire du billet: </label>
+                    <input type="text" name="titulaireBillet" id="titulaireBillet"  required/>*
+                </div>
+                <div>
+                    <label for="email">Courriel: </label>
+                    <input type="email" name="email" id="email" placeholder="votre adresse mail" required/>*
+                </div>
+            </fieldset>
+            <div class="button">
+                <button id="envoyer">Acheter</button>
+            </div>
+        </form>
+        <div id="waitMessage">
+            <img src="images/animatedCircle.gif" alt="cercle animé"/>
+            <p>
+                Patience...<br>
+                Votre ticket est en cours de prépararation.
+            </p>
+        </div>
+    </body>
+</html>
+

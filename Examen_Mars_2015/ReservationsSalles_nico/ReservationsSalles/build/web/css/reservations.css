@@ -1,0 +1,77 @@
+/* 
+    Created on : 26 mars 2015, 12:21:59
+    Author     : genoud
+*/
+table, td, th {
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td {
+    padding-left : 15px;
+    padding-right: 15px;
+}
+
+th {
+    background-color: #ccccff;
+}
+
+* {
+    font-family: Verdana,Arial,sans-serif;
+    font-weight: normal;
+}
+
+body {
+    margin: auto;
+    width: 800px;
+    padding: 0px;
+}
+
+#loginPage {
+    text-align: center;
+}
+
+#loginPage fieldset,  #logoutPage fieldset{
+    margin-top: 10px;
+    width: 500px;
+    height:210px;
+    padding: 0.3em 0.5em 0.3em 0.5em ;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    text-align: center;
+}
+
+#loginPage legend {
+    font-weight: bold;
+}
+
+#loginPage label {
+    /* Afin de s'assurer que toutes les étiquettes aient la même dimension et soient alignées correctement */
+    display: inline-block;
+    width: 180px;
+    text-align: left;
+}
+
+#messageErreur {
+    color: red;
+    font-weight: bold;
+}
+#exceptionBD {
+    color: red;
+    font-weight: bold;
+    font-size:0.7em;
+}
+
+#header {
+    margin-top:20px;
+    margin-bottom: 10px;
+    text-align: right;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+#wrapper {
+    margin:auto;
+    width:600px;
+}

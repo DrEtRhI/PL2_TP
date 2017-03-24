@@ -1,0 +1,6 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<p>
+    cavalier en piste n° ${gestionnaire.noCavalierEnPiste}<br>
+    <strong class="cavalier-info">PrénomX CAVALIERX (XX) sur CHEVALX (x ans)</strong>
+</p>
